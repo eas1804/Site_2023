@@ -1,0 +1,11 @@
+Синхронизация с Amazone S3
+Какой Локальный каталог синхронизировать с S3.
+\ в конце — ОБЯЗАТЕЛЬНА
+
+set LOCAL_FOLDER=D:\Backup_S3\srv\
+имя Bucket и каталог на S3.
+/ в конце — ОБЯЗАТЕЛЬНА
+
+set BUCKET=bucker.name/srv/
+"C:\Program Files\Amazon\AWSCLI\bin\aws" s3 sync %LOCAL_FOLDER% s3://%BUCKET% --storage-class GLACIER
+"C:\Program Files\Amazon\AWSCLI\bin\aws" s3 sync %LOCAL_FOLDER% s3://%BUCKET% --storage-class GLACIER --delete

@@ -1,0 +1,23 @@
+Очистить все логи:
+
+wevtutil el | Foreach-Object {wevtutil cl "$_"}
+
+Удалить ненужные компоненты Windows Update:
+Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase
+Dism.exe /online /Cleanup-Image /SPSuperseded
+
+провести дефрагментацию, чтобы переместить все файлы в начало диска:
+Optimize-Volume -DriveLetter C -Defrag
+обнулить всё свободное место при помощи команды sdelete, входящей в состав SysInternals:
+
+sdelete -z c:
+
+	Очистить временные каталоги
+rmdir /q/s c:\Windows\Temp  && mkdir c:\Windows\Temp
+rmdir /q /s %tmp% && mkdir %tmp%
+
+	Очистка диска
+cleanmgr /sageset:99
+cleanmgr /sagerun:99
+
+ПКМ на диске — свойства-Общие-Очистка диска-очистить системные файлы

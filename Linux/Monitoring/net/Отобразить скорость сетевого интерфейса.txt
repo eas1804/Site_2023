@@ -1,0 +1,9 @@
+Отобразить скорость сетевого интерфейса enp1s0
+
+apt install ethtool
+
+ethtool enp1s0 | grep -i speed
+
+dmesg -T | grep enp1s0 |grep Up
+
+T — dmesg покажет время в человеческом формате

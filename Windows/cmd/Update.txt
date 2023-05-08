@@ -1,0 +1,14 @@
+Просмотр обновлений
+wmic qfe list brief /format:table
+wmic qfe list
+wmic qfe list | find ″KB3149090″
+Формат даты обновления месяц/день/год
+
+Через powershell
+
+Get-SilWindowsUpdate
+или конкретное обновление
+
+Get-SilWindowsUpdate -ID kb3149090
+Удаление обновлений
+wusa /uninstall /kb:номер_обновления 

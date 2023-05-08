@@ -1,0 +1,2 @@
+Часовой пояс
+timedatectl set-timezone 'EuropeKiev'

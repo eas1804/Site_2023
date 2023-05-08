@@ -1,0 +1,22 @@
+Создать ключ
+ssh-keygen -t ed25519 -C Коментарий
+-f можно задать Имя Файла для ключа
+-t TAB — отобразить другие способы шифрования ключа
+Будут созданы два файла — открытый ключ с расширением .pub и закрытый (id_ed25519).
+Публичный ключ добавить на сервер в файл /root/.ssh/authorized_keys
+
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+
+Если нет файла authorized_keys
+ssh-copy-id  -i .ssh/private.key 127.0.0.1
+
+Подключаться личным (private) ключем
+ ssh -i id_rsa root@192.168.1.10
+
+Socks-proxy через ssh
+ssh -D 3128 ubuntu@oracle.mlp.pp.ua -i id_rsa
+Проверить, что все работает. 
+На клиенте
+netstat -aont | findstr 3128
+В броузере указать прокси
+127.0.0.1:3128

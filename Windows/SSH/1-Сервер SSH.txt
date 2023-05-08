@@ -1,0 +1,16 @@
+Сервер
+Установить
+Через Параметры -> Приложения -> Дополнительные возможности -> Добавить компонент. Найдите в списке Клиент OpenSSH и нажмите кнопку Установить.
+
+dism /Online /Add-Capability /CapabilityName:OpenSSH.Server~~~~0.0.1.0
+Для более ранних версий, скачать:
+
+https://github.com/PowerShell/Win32-OpenSSH/releases
+Проверить
+Get-WindowsCapability -Online | ? Name -like 'OpenSSH.Ser*'
+Настроить
+Set-Service -Name sshd -StartupType 'Automatic'
+Start-Service sshd
+netstat -na| findstr ":22"
+Файрвол
+Get-NetFirewallRule -Name *OpenSSH-Server* |select Name, DisplayName, Description, Enabled

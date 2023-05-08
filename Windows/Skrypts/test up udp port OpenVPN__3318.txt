@@ -1,0 +1,25 @@
+@echo off
+set FILE=C:\cmd\OpenVPN\info.txt
+netstat -ano | findstr /i "0:3318"
+if "%ERRORLEVEL%"=="0" (
+echo OpenVPN is running and port 3318 is being listened to.
+) else (
+echo OpenVPN is not running or port 3318 is not being listened to. Restarting…
+echo --------------Service OpenVPN is Restart---------------->>%FILE%
+
+date /t >>%FILE%
+time /t >>%FILE%
+
+taskkill /f /im openvpn*
+
+net stop OpenVPNServiceInteractive
+net start OpenVPNServiceInteractive
+
+netsh interface set interface name="ServerVPN" admin=DISABLED
+netsh interface set interface name="ServerVPN" admin=ENABLED
+
+"C:\Program Files\OpenVPN\bin\openvpn-gui" --connect server.ovpn
+)
+
+timeout 5
+exit 0

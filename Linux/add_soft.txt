@@ -1,0 +1,7 @@
+apt-get update
+
+apt install -y mc 
+apt install -y vim
+apt install -y htop
+apt install -y net-tools
+apt install -y iptables-persistent

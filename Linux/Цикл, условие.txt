@@ -1,0 +1,31 @@
+Цикл, условие
+1. for
+for i in '
+команда1'
+; do команда2 $i ; done
+
+команда1 — выполнить команду и работать с ее результатом
+
+команда2 — работает с результатом команды 1
+
+for i in 'cat ip.txt'; do whois $i | grep -i "country"| uniq ; done
+В файле ip.txt находилось 300 ip неуникальных (есть повторения) ip адресов. По по одному в каждой строке.
+
+Мы к каждому из этих адресов применяем команду whois и выводим имя страны
+whois | grep -i «country»| uniq
+
+2. Сравнение — if
+
+docker exec -it ipsec-vpn-server ip a | grep 192.168.42.105 > test.ip
+
+EXAMPLE_IP="$(awk '{print $4}' test.ip)"
+MAMA_IP=192.168.42.105/32
+echo Mama IP is $MAMA_IP
+echo it is $EXAMPLE_IP
+if [ "$MAMA_IP" = "$EXAMPLE_IP" ]; then
+echo "Mama - OnLine"
+STATE=ONLINE
+else
+echo "Mama - OffLine"
+STATE=OffLine
+fi

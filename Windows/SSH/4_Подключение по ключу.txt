@@ -1,0 +1,34 @@
+Подключение по ключу
+
+	На клиенте OpenSSH
+
+Установить клиент OpenSSH
+Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
+
+Cгенерируйте пару ED25519 ключей
+Запустите обычную (непривилегированную сессию PowerShell)
+
+ssh-keygen -t ed25519
+Скопировать в c:\users\user1\.ssh\authorized_keys
+scp C:\Users\youruser\.ssh\id_rsa.pub user1@192.168.10.90:c:\users\user1\.ssh\authorized_keys
+
+	На сервере OpenSSH
+Включить аутентификацию по ключам
+Notepad C:\ProgramData\ssh\sshd_config
+Раскоментировать:
+
+PubkeyAuthentication yes
+StrictModes no
+Чтобы использовать ключ authorized_keys из профиля пользователя, и не переносить данные в файл administrators_authorized_keys
+
+Закомментируйте строки:
+
+#Match Group administrators
+# AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+Перезапустить OpenVPN
+Restart-Service sshd
+При желании — Запрет подключения по паролю
+В файле C:\ProgramData\ssh\sshd_config
+
+ PasswordAuthentication no
+restart-service sshd

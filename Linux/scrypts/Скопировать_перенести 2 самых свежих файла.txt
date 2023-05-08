@@ -1,0 +1,7 @@
+Скопировать/перенести 2 самых свежих файла
+
+$SOURSE=/mnt/disk1
+$TARGET=/mnt/disk2
+
+ls -tr $SOURSE/*.*  | tail -n 2 |    xargs -n 1 -I % cp "%"  $TARGET
+ls -tr $SOURSE/*.*  | tail -n 2 |    xargs -n 1 -I % mv "%"  $TARGET

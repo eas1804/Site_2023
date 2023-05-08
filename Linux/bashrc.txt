@@ -1,0 +1,15 @@
+Добавить путь
+
+echo "export PATH=$PATH:/usr/sbin" >>/root/.bashrc
+Добавить Алиасы
+
+echo "alias ll='ls -alF'" >>/root/.bashrc
+
+echo "alias la='ls -A'" >>/root/.bashrc
+
+echo "alias l='ls -CF'" >>/root/.bashrc
+
+
+Чтобы после добавления алиас сразу стал доступен, предварительно нужно обновить командную оболочку: 
+
+source ~/.bashrc

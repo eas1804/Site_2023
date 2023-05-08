@@ -1,0 +1,14 @@
+Диски в Linux
+lsblk
+Для просмотра информации об устройствах хранения в Linux можно использовать утилиту lsblk (list block devices)
+
+Отобразить uuid диска или файловую систему
+
+lsblk -f
+Отобразить полный путь устройства
+
+lsblk -p
+отобразить дополнительные параметры
+
+lsblk -o +FSTYPE,UUID,MODEL,SERIAL
+lsblk /dev/sda /dev/sdb

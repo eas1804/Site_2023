@@ -1,0 +1,12 @@
+Cоздать копию драйверов Windows 10 
+
+	Powershell от Администратора
+
+Export-WindowsDriver —Online —Destination D:\Drivers
+
+	cmd от Администратора
+
+dism /online /export-driver /destination:D:\Drivers
+pnputil.exe — не требует установки
+
+pnputil.exe /export-driver * d:\drivers

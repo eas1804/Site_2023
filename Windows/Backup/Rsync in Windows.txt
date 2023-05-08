@@ -1,0 +1,22 @@
+Rsync in Windows
+1.Local copy Rsync
+Deltacopy предварительно установить
+
+@echo off
+rem 1. что копировать в формате /cygdrive/диск/папка
+set SOURCE=/cygdrive/c/CMD
+rem 2. Куда копировать в формате /cygdrive/диск/папка
+set TARGET=/cygdrive/d/Backup
+rem 3. Куда копировать в формате dos
+set TARGET_DOS=d:\Backup
+rem 4. Как назвать каталог с копией на применике
+set NAME=COMMANDS
+    rem ##########CONSTANTA############
+set dd=%DATE:~0,2%
+set mm=%DATE:~3,2%
+set yyyy=%DATE:~6,4%
+set HH=%time:~0,2%
+set MM=%time:~3,2%
+set CUR_DATE_TIME=%yyyy%-%mm%-%dd%_%HH%-%MM%
+mkdir %TARGET_DOS%\%NAME%\current
+C:\DeltaCopy\rsync -avz --progress --delete %SOURCE% %TARGET%/%NAME%/current --backup --backup-dir=%TARGET%/%NAME%/increment/%CUR_DATE_TIME%

@@ -1,0 +1,4 @@
+Клиент
+Подключение
+ssh root@192.168.1.92 -i "C:\Users\username.ssh\id_rsa"
+ssh username@host -p port

@@ -1,0 +1,6 @@
+Оставить 2 самых свежих каталога.
+
+set FOLDER=D:\Backup
+cd /d %FOLDER%
+dir /O-D /AD /B > files.txt
+for /f "skip=2 delims=" %%G in (files.txt) do rmdir /q/s "%%G"

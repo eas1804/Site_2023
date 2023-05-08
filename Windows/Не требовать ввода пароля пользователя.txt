@@ -1,0 +1,5 @@
+control userpasswords2
+
+Компьютер\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device
+
+Значение 0

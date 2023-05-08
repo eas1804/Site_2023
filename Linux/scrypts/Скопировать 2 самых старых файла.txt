@@ -1,0 +1,3 @@
+из текущего каталога в /home/test/
+
+ls -t | tail -2 | xargs -n 1 -I % cp --parents "%" /home/test/

@@ -1,0 +1,5 @@
+Вывеси 10 директорий с самыми большим занимаемым ими объемом
+
+du -hs * | sort -hr | head -10
+
+du -s *| sort -nr | cut -f 2- | while read a;do du -hs $a; done | awk 'NR <=10'

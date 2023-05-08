@@ -1,0 +1,19 @@
+Архивировать каждую папку в отдельный архив
+rem В файле variables.txt указываем переменные, например
+rem DRIVE=C: - имя диска, ОТКУДА будем архивировать
+rem FROM=\Constanta - каталог, который будем архивировать. БЕЗ ИМЕНИ ДИСКА
+rem OUT=H:\test_Backup - каталог, в который будем архивировать
+set CUR_DATE_TIME=%DATE:~6,4%-%DATE:~3,2%-%DATE:~0,2%_%time:~0,2%-%time:~3,2%
+rem Загружаем переменные из файла
+for /f "tokens=1,2 delims==" %%G in (variables.txt) do set %%G=%%H
+rem Переопределяем выходной каталог
+set OUT=%OUT%\%CUR_DATE_TIME%
+rem Архивируем в каталог
+mkdir %OUT%
+%DRIVE%
+for /d %%X in (%FROM%*) do "c:\Program Files\7-Zip\7z.exe" a -ssw -mx7 "%OUT%\%%X.7z" "%%X\"
+
+variables.txt
+DRIVE=D:
+FROM=\Bace_1c
+OUT=F:\Backup\FOR_AWS

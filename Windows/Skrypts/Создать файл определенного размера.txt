@@ -1,0 +1,5 @@
+Создать файл определенного размера
+
+fsutil file createnew C:\path\to\file\filename.ext 1073741824
+
+пример - 1 ТБ

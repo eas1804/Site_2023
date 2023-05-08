@@ -1,0 +1,9 @@
+Скопировать/перенести файлы, созданные вчера и позавчера
+
+$SOURSE=/mnt/disk1
+ $TARGET=/mnt/disk2
+
+find $SOURSE -type f -mtime -2 | xargs -n 1 -I % cp "%" $TARGET
+
+
+find $SOURSE -type f -mtime -2 | xargs -n 1 -I % mv "%" $TARGET

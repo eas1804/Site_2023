@@ -1,0 +1,8 @@
+Удаление старых каталогов из D:\backup
+
+forfiles  /p D:\Backup /d -7 /C "cmd /c if @isdir==TRUE echo rd /s /q @file"
+После проверки убрать echo
+
+Сколько дней /d -7
+
+В каком каталоге /p D:\Backup

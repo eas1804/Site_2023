@@ -1,0 +1,7 @@
+Выполнить последнюю команду от root
+sudo !! 
+
+Команда Sudo без пароля (sudo -i)
+visudo
+Заменить
+username ALL=(ALL) NOPASSWD: ALL

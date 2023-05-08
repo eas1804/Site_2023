@@ -1,0 +1,3 @@
+which postfix
+
+type -a postfix

@@ -1,0 +1,5 @@
+Задать права доступа к папке и её подпапкам
+
+icacls "C:\Users\Username\Documents" /grant "John":(F) /T
+
+Например, чтобы предоставить пользователю «John» полный доступ ко всем файлам и подпапкам в папке «C:\Users\Username\Documents»

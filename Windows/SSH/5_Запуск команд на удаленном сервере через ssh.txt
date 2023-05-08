@@ -1,0 +1,9 @@
+Запуск команд на удаленном сервере через ssh
+ssh root@123.123.123.123 ‘uname -a’
+ssh  root@123.123.123.123 ‘ifconfig; netstat -anp tcp’
+
+
+Выполнить сценарий
+локальный файл /home/user/myscript.sh исполнится на удаленном сервере.
+
+ssh  root@123.123.123.123 ‘bash -s’ < /home/user/myscript.sh

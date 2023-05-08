@@ -1,0 +1,1 @@
+cp $(find . -mtime -30) /mnt/disk2/Scan2017/old

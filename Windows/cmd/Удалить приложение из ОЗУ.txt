@@ -1,0 +1,2 @@
+taskkill /f /im openvpn*
+taskkill /f /im teamviewer*

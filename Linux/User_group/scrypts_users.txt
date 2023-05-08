@@ -1,0 +1,15 @@
+Скрипт добавления пользователя в определенный каталог
+
+!/bin/bash
+echo " При запуске в качестве агруснта указать имя нового пользователя!!!!!"
+USER=$1
+echo "Name of user - " $USER
+PATH_MTIR=/mnt/disk_2/corp_users/$USER
+
+mkdir -p $PATH_MTIR
+cp -rT /etc/skel $PATH_MTIR
+useradd -s /bin/bash -d $PATH_MTIR $USER
+chown -R $USER:$USER $PATH_MTIR
+passwd $USER
+cat /etc/passwd | grep $USER
+exit 0

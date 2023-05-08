@@ -1,0 +1,1 @@
+mklink /j c:\intel\Vasya_link c:\Вася

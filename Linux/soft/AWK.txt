@@ -1,0 +1,18 @@
+AWK
+
+Вывести данные из 1го столбца файла file.txt
+awk '{print $1}' file.txt
+
+Отсортировать (sort)
+awk '{print $1}' test | sort
+
+Отсортировать и вывести уникальные (sort -u)
+awk '{print $1}' test | sort -u
+
+Посчитать кол-во уникальных строк (unic -c)
+awk '{print $1}' test | sort | uniq -c | sort -n
+uniq — уоникальный
+
+-c counter
+
+-n numeric

@@ -1,0 +1,23 @@
+Монтирование SMB
+
+Установить пакет
+apt install cifs-utils -y
+
+Создать файл с credentials
+vi /etc/credentials
+
+username=user_smb
+password=S#m#B#2017
+Доступ должен быть не только по сети но ки к файловой системе!
+
+Монтирование сетевого ресурса
+Пример монтирования \\192.168.18.103\1c_backup в /mnt/mount-point
+
+IP=192.168.18.103
+SHARA_FROM=1c_backup         # Shara
+MNT_POINT=/mnt/mount-point   # Точка мониторвания
+SMB_V=2.0                    # Версия smb источника
+mount -t cifs //$IP/$SHARA_FROM $MNT_POINT -o credentials=/etc/credentials -o vers=$SMB_V -o ro
+
+Размонтировать
+umount /mnt/mount-point

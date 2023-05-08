@@ -1,0 +1,68 @@
+	Add new disk
+1. Создать каталог для монтирования
+mkdir /mnt/disk2
+chmod -R 777 /mnt/disk2
+
+2. Узнать имя нового диска
+lsblk
+или
+lsblk  /dev/sdb
+Диски называются sda, sdb, sdc и т.д.
+
+fdisk -l | grep /dev/sd
+
+Информация по конктретному диску
+fdisk -l | grep /dev/sdb
+================================
+	Для LVM
+Добавить новый раздел
+vgs
+Узнать имя группы, например ubuntu-vg
+
+	lvs
+lvcreate -l 100%FREE -n for-backup ubuntu-vg
+Использовать все свободное пространство — l 100%FREE
+
+-n for-backup — имя логического тома
+
+	Увеличить существующий раздел
+lvresize -L +5G  --resizefs VG_Name/LV_Name
+VG_Name/LV_Name Смотрим lvdisplay
+
+lvresize -L +5G  --resizefs ubuntu-vg/ubuntu-lv
+================================
+3.	Форматируем диск, например /dev/sdb в GPT
+gdisk /dev/sdb
+o             создать новую таблицу разделов
+
+w            записать
+
+Разделы не обязательно добавлять
+Создать разделов sdb1, sdb2 на диске sdb
+fdisk /dev/sdb
+n             добавим новый раздел
+
+p             основной раздел
+
+w            записать
+
+4. Форматируем раздел sdb1 в файловой системе ext4
+то есть — создаем файловую систему
+
+mkfs.ext4 /dev/sdb1
+Можно форматировать не логический диск sdb1, а диск sdb
+
+mkfs.ext4 /dev/sdb
+
+5. Автоматическое монтирование sdb при загрузке Linux
+определить UUID
+5.1 blkid -c /dev/null | grep sdb1
+
+5.2. в конец файла добавить /etc/fstab
+
+UUID="fc1c24cf-3858-4dfa-a7f4-f001428284e3"  /mnt/disk2 ext4 defaults 0 0
+
+5.3 После того как вы сохраните этот файл, 
+монтируем диск (без перезагрузки) с помощью команды:
+
+mount -a

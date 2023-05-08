@@ -1,0 +1,79 @@
+Chkservice, systemctl
+
+	Chkservice
+add-apt-repository ppa:linuxenko/chkservice
+apt update
+apt install chkservice
+Управление Chkservice
+Информация о состоянии установки утилиты:
+
+[x] — показывает, что объект включен.
+[] — показывает, что объект отключен.
+[s] — указывает на статическую единицу.
+-m- — показывает, что объект замаскирован.
+= — указывает, что объект остановлен.
+
+> — показывает, что модуль работает.
+
+Вверх / k — перемещение курсора вверх.
+Вниз / j — переместить курсор вниз.
+PgUp / b — переместить страницу вверх.
+PgDown / f — переместить страницу вниз.
+Кнопки действий для утилиты:
+
+r — обновляет или перезагружает информацию.
+Пробел — используется для включения или отключения модуля.
+s — для запуска или остановки модуля.
+q — выход.
+
+	systemctl
+Отобразить все сервисы
+systemctl --type=service 
+loaded — загружен
+
+active — будет запускаться при каждом старте системы
+
+running — работает, запущен
+
+	Отобразить конктретный сервис
+systemctl --type=service | grep nginx
+
+==========================
+systemd
+Links: https://losst.pro/upravlenie-sluzhbami-linux
+
+Просмотр всех юнитов
+systemctl list-units
+systemctl list-units | grep dhcp
+
+Выполняющиеся службы
+systemctl list-units --type service --state running
+Завершились службы с ошибкой
+
+systemctl list-units --type service --state failed
+Список запущенных служб
+
+systemctl list-units --type service
+Запуск/статус службы
+Запустить сервер OpenVPN, указав имя конфигурационного файла в качестве переменной экземпляра после имени unit-файла systemd. Файл конфигурации сервера называется /etc/openvpn/server_1194.conf, поэтому мы добавим @server_1194 после unit-файла:
+
+systemctl start openvpn@server_1194
+systemctl status openvpn@server_1194
+==================================================
+Задать имени хоста:
+hostnamectl set-hostname srv-02
+
+Настройка часового пояса:
+timedatectl set-timezone Europe/Kyiv
+
+Посмотреть время
+timedatectl
+
+просмотра сообщений ядра
+journalctl -k
+
+Время загрузки
+who -b 
+
+link
+http://www2.kangran.su/~nnz/pub/s4a/s4a_latest.pdf

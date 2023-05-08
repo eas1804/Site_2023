@@ -1,0 +1,17 @@
+Сколько копий хранить
+setlocal enableextensions enabledelayedexpansion
+set /a iCount = 10
+rem. Foledr 1
+
+set sFolder="E:\Backup_1c"
+for /f "skip=%iCount% usebackq delims=" %%i in (
+dir /b /a:-d /o:-d /t:w "%sFolder%"
+) do del /f /q "%sFolder%\%%~i"
+rem. Folder 2
+
+set sFolder="\\10.10.10.2\Backup\1c"
+for /f "skip=%iCount% usebackq delims=" %%i in (
+	`dir /b /a:-d /o:-d /t:w "%sFolder%"`
+) do del /f /q "%sFolder%\%%~i"
+endlocal
+exit /b 0

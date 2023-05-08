@@ -1,0 +1,2 @@
+"C:\Program Files\Amazon\AWSCLI\bin\aws" s3 ls s3://%BUCKET% --human-readable --summarize
+
