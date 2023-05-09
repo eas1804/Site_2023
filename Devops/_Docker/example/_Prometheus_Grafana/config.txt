@@ -1,0 +1,1 @@
+nano /var/lib/docker/volumes/prometheus_prom-configs/_data/prometheus.yml
