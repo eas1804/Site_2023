@@ -1,0 +1,4 @@
+Логировать
+
+iptables -A INPUT -p tcp -m tcp --dport 3306 -j LOG --log-prefix "IP_mysql"
+Все обращения к порту 3306/tcp заносить в лог /var/log/messages или в /var/log/syslog

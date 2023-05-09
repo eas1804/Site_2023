@@ -1,0 +1,4 @@
+Разрешить все c конкретного интерфейса
+
+iptables -A INPUT -i -eth0 -j ACCEPT -m comment --comment "LAN"
+

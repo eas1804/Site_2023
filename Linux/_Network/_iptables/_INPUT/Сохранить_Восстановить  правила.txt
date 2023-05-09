@@ -1,0 +1,15 @@
+Сохранить
+
+iptables-save > /etc/iptables/rules.v4
+
+или
+apt install iptables-persistent
+service netfilter-persistent save
+
+
+CentOS
+service iptables save
+
+
+Восстановить правила:
+iptables-restore < /etc/iptables/rules.v4

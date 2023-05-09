@@ -1,0 +1,10 @@
+Отобразить все правила
+Все правила храниться здесь:
+
+cat /etc/iptables/rules.v4
+
+iptables -S
+
+iptables -L {INPUT|FORWARD|OUTPUT} -nv
+
+iptables -t nat -L {PREROUTING|POSTROUTING} -nv --line-numbers

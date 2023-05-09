@@ -1,0 +1,14 @@
+Подключиться
+
+@echo off
+
+"C:\Program Files\OpenVPN\bin\openvpn-gui" --command disconnect_all
+
+rem netsh interface set interface name="OpenVPN" admin=DISABLED
+rem TIMEOUT /t 5  /NOBREAK >nul
+rem netsh interface set interface name="OpenVPN" admin=ENABLED
+
+"C:\Program Files\OpenVPN\bin\openvpn-gui" --connect unac_2.ovpn
+TIMEOUT /t 10  /NOBREAK >nul
+mstsc /v:192.168.18.33 /f
+"C:\Program Files\OpenVPN\bin\openvpn-gui" --command disconnect_all

@@ -1,0 +1,3 @@
+Отключиться
+
+"C:\Program Files\OpenVPN\bin\openvpn-gui" --command disconnect_all

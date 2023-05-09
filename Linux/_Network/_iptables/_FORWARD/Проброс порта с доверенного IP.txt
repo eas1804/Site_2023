@@ -1,0 +1,16 @@
+Проброс порта с доверенного IP
+
+TRUSTED_IP=5.5.5.5 #Доверенный Ip или доменное имя
+
+IP_WAN=1.1.1.1  # IP сетевой карты, смотрящей в интернет
+WAN_ETH=eth0
+IP_LAN_1=172.16.16.1
+DPORT_EXTERNAL=2222 #из порта WAN
+DPORT_INTERNAL=22 #в порт LAN
+PROTO=tcp
+
+iptables -t nat -A PREROUTING -p $PROTO -d $IP_WAN --dport $DPORT_EXTERNAL -j DNAT --to-destination $IP_LAN_1:$DPORT_INTERNAL
+iptables -A FORWARD -i $WAN_ETH -p $PROTO --dport $DPORT_INTERNAL -s $TRUSTED_IP -j ACCEPT -m comment --comment "$TRUSTED_IP"
+
+iptables  -t nat  -L PREROUTING -n --line-numbers
+iptables -L FORWARD -n -v --line-numbers

@@ -1,0 +1,4 @@
+Состояние сетевого интерфейса
+
+
+netsh interface show interface

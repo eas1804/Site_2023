@@ -1,0 +1,36 @@
+cd /etc/netplan/
+vi 50-cloud-init.yaml
+
+(файл может называться по другому, но yaml)
+ВАЖНЫ ПРОБЕЛЫ в начале строк, которые обозначают структуру. Не использовать клавишу TAB
+
+network:
+ version: 2
+ renderer: networkd
+ ethernets:
+  eth0: #имя интерфейса сетевой карты
+   addresses:
+    - 192.168.18.7/24 #адрес машины с указанием маски сети
+   gateway4: 192.168.18.1 #адрес шлюза
+   nameservers:
+    addresses:
+     - 8.8.8.8
+     - 1.1.1.1
+
+
+Для DHCP
+
+network:
+  version: 2
+  ethernets:
+    eth0:
+      addresses: []
+      dhcp4: true
+
+
+
+После окончания редактирования
+
+netplan apply
+Для подробного вывода информации при применении, используйте опцию —debug:
+netplan --debug apply

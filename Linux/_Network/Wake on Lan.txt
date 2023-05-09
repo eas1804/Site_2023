@@ -1,0 +1,3 @@
+Wake on Lan
+
+/usr/bin/wakeonlan -p 8 4c:ed:fb:73:4c:93

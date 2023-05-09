@@ -1,0 +1,3 @@
+мощность сигнала всех доступных беспроводных соединений
+
+netsh wlan show networks mode=bssid

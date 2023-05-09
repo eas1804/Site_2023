@@ -1,0 +1,10 @@
+cd /d "C:\Program Files\OpenVPN\easy-rsa"
+
+vars
+
+Path=%path%;C:\Program Files\OpenVPN\bin
+
+Build-key Mihail2
+(!!!!Внимательно ввести common name — Mihail2)
+
+Результат в каталоге C:\Program Files\OpenVPN\easy-rsa\keys

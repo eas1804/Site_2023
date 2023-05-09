@@ -1,0 +1,3 @@
+Открываем порт 3389
+
+netsh advfirewall firewall add rule name="Open Remote Desktop" protocol=TCP dir=in localport=3389 action=allow

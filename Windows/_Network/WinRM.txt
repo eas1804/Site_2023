@@ -1,0 +1,18 @@
+WinRM
+1. Winrm quickconfig 
+
+В случае ошибки: «Исключение брандмауэра WinRM не будет работать, 
+поскольку одно из сетевых подключений, установленных для этого компьютера, является общим.»
+
+regedit — исправил тип подключения сети с «Общественного» на «рабочая»
+
+HKLM:\Software\Microsoft\WindowsNT\CurrentVersion\Networklist\profile\......
+Параметр Category (0-общественная, 1- рабочая )
+
+После этих действий winrm qc отработал без проблемм.
+
+Включить (внимательно с кавычками «true»)
+
+winrm set winrm/config/client/auth '@{Basic="true"}'
+winrm set winrm/config/service/auth '@{Basic="true"}'
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'

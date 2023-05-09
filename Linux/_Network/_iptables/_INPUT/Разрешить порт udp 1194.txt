@@ -1,0 +1,3 @@
+Разрешить порт udp 1194
+
+iptables -A INPUT -p udp -m udp --dport 1194 -j ACCEPT -m comment --comment "For OpenVPN"

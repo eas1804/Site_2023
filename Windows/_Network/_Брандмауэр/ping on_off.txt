@@ -1,0 +1,5 @@
+ping on
+netsh advfirewall firewall add rule name="All ICMP V4" dir=in action=allow protocol=icmpv4
+
+ping off
+netsh advfirewall firewall add rule name="All ICMP V4" dir=in action=block protocol=icmpv4

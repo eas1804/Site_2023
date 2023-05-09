@@ -1,0 +1,2 @@
+iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT -m comment --comment "For web srv"
+iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT -m comment --comment "For web srv"

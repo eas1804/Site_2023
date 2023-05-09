@@ -1,0 +1,3 @@
+Разрешаем ICMP c IP x.x.x.x
+
+iptables -A INPUT -p icmp -s x.x.x.x -j ACCEPT -m comment --comment "My Office"

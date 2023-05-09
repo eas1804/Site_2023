@@ -1,0 +1,24 @@
+Изменить тип сети с общедоступной на частную
+В Windows 10/11 и Windows Server 2022/2019/2016 
+вы можете управлять профилями сетевых подключений из PowerShell.
+
+1. Выведите список сетевых интерфейсов Windows и применённые к ним сетевых профилей
+
+Get-NetConnectionProfile
+
+2. Для конкретного сетевого интерфейса
+
+Get-NetConnectionProfile -InterfaceIndex 19
+
+3. Чтобы изменить профиль сети, нужно указать номер сетевого интерфейса, 
+назначенный сетевому адаптеру (InterfaceIndex). В этом примере InterfaceIndex = 19.
+
+Изменить тип сети для сетевого интерфейса с индексом 19 на Private
+
+Set-NetConnectionProfile -InterfaceIndex 19 -NetworkCategory Private
+
+По аналогии вы можете изменить местоположение сети на Public:
+
+Set-NetConnectionProfile -InterfaceIndex 19  -NetworkCategory Public
+Или доменный:
+Set-NetConnectionProfile -InterfaceIndex 19 -NetworkCategory DomainAuthenticated

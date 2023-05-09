@@ -1,0 +1,10 @@
+IP_WAN=60.10.20.20
+WAN_ETH=vmbr0
+IP_LAN_1=10.10.33.2
+DPORT_EXTERNAL=1194 #из порта WAN
+DPORT_INTERNAL=1194 #в порт LAN
+PROTO=udp
+
+iptables -t nat -A PREROUTING -p $PROTO -d $IP_WAN --dport $DPORT_EXTERNAL -j DNAT --to-destination $IP_LAN_1:$DPORT_INTERNAL
+iptables -A FORWARD -i $WAN_ETH -p $PROTO --dport $DPORT_EXTERNAL -j ACCEPT
+iptables -t nat -L PREROUTING -n --line-numbers
