@@ -1,0 +1,4 @@
+curl 2ip.ru
+
+или
+wget -O - -q icanhazip.com

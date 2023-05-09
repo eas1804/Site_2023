@@ -1,0 +1,4 @@
+Статистика потребляемых ресурсов контейнера или группы контейнеров:
+
+docker stats container1
+docker stats container1 container2 container3

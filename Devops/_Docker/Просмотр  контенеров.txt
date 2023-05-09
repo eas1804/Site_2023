@@ -1,0 +1,7 @@
+Просмотр всех контенеров
+docker ps
+
+docker container ls --format 'table {{.Names}} | {{.Status}}'| nl -v 0
+
+Посмотреть все остановленные контейнеры
+docker ps -a -f status=exited

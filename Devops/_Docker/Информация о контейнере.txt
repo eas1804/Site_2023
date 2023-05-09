@@ -1,0 +1,5 @@
+Информация о контейнере:
+docker inspect container1
+
+Контейнеры хранятся в виде папок и файлов в директории:
+/var/lib/docker/volumes

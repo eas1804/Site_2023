@@ -1,0 +1,11 @@
+Python
+Опубликлвать каталог по HTTP
+
+Перейти в каталог, какой хотим опубликовать
+
+python3 -m http.server port
+
+Пример:
+cd /var/log
+
+python3 -m http.server 8181
