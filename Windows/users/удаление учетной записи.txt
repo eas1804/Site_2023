@@ -1,0 +1,1 @@
+net user NAME_OF_USER /delete

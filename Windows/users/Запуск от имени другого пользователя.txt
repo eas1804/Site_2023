@@ -1,0 +1,3 @@
+runas /user:administrator "C:\Windows\cmd.exe"
+
+runas /savecred:/user:admin@mydomain "C:\Windows\cmd.exe" — с сохранением пароля

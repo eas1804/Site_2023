@@ -1,0 +1,4 @@
+Срок действия пароля — не заканчивается.
+!!!Не забыть кавычки для имени пользователя
+
+wmic path Win32_UserAccount where Name="userName" set PasswordExpires=false
