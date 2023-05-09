@@ -1,0 +1,66 @@
+Firewall
+
+/ip firewall address-list
+add address=mlp.pp.ua list= allowed_to_router comment="Upfk"
+add address=diol.mlp.pp.ua list= allowed_to_router comment="Diol"
+add address=unac.mlp.pp.ua list= allowed_to_router comment="Unac"
+add address=home.mlp.pp.ua list= allowed_to_router comment="Home"
+add address=lesnoy.mlp.pp.ua list= allowed_to_router comment="Lesnoy"
+add address=obolon.mlp.pp.ua list= allowed_to_router comment="Obolon"
+
+add address=192.168.0.0/16 list=allowed_to_router comment=LAN_C_cass
+или
+add address=172.16.0.0/12 list=allowed_to_router comment=LAN_B_class
+или
+add address=10.0.0.0/8 list=allowed_to_router comment=LAN_A_cass
+
+#¬нимательно вписываем сеть!!!
+add address=192.168.72.0/24 list=Lan_Home comment=Lan_Home
+
+
+/ip firewall filter
+
+add action=accept chain=input connection-state=established,related comment="established, related connections"
+add action=drop chain=input   connection-state=invalid  comment="Drop invalid"
+add action=accept chain=input dst-port=8291,22,80 protocol=tcp src-address-list=allowed_to_router comment="Acsess from My IP (allowed_to_router)Ф
+add action=accept chain=input comment="icmp on" protocol=icmp src-address-list=allowed_to_router
+add action=drop chain=input comment="other DROP!!!!"
+
+
+add action=fasttrack-connection chain=forward connection-state=established,related comment=FastTrack_established-related
+add action=accept chain=forward connection-state=established,related comment="established, related connections"
+add action=drop chain=forward connection-state=invalid  comment="Drop invalid"
+add action=drop chain=forward connection-nat-state=!dstnat connection-state=new in-interface-list=WAN comment="Drop incoming packets that are not NATted"
+add action=drop chain=forward in-interface=bridge_lan src-address-list=!Lan_Home comment="Drop packets from LAN that do not have LAN IP"
+add action=accept chain=forward src-address-list=Lan_Home comment="Acsess form LAN"
+add chain=forward action=drop comment="Other drop"
+
+
+#Protect
+
+/ip neighbor discovery-settings
+set discover-interface-list=LAN
+/tool mac-server
+set allowed-interface-list=LAN
+/tool mac-server mac-winbox
+set allowed-interface-list=LAN
+
+
+____  os7 standard config________________
+/ip firewall filter
+add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
+add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid
+add action=accept chain=input comment="defconf: accept ICMP" protocol=icmp
+add action=accept chain=input comment="defconf: accept to local loopback (for CAPsMAN)" dst-address=127.0.0.1
+add action=drop chain=input comment="defconf: drop all not coming from LAN" in-interface-list=!LAN
+
+add action=accept chain=forward comment="defconf: accept in ipsec policy" ipsec-policy=in,ipsec
+add action=accept chain=forward comment="defconf: accept out ipsec policy" ipsec-policy=out,ipsec
+add action=fasttrack-connection chain=forward comment="defconf: fasttrack" connection-state=established,related hw-offload=yes
+add action=accept chain=forward comment="defconf: accept established,related, untracked" connection-state=established,related,untracked
+add action=drop chain=forward comment="defconf: drop invalid" connection-state=invalid
+add action=drop chain=forward comment="defconf: drop all from WAN not DSTNATed" connection-nat-state=!dstnat connection-state=new in-interface-list=WAN
+
+
+
+

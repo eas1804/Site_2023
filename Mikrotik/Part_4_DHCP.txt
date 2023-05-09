@@ -1,0 +1,15 @@
+3. Dhcp
+
+/ip pool
+add name=dhcp_pool_lan ranges=192.168.72.20-192.168.72.254
+
+/ip dhcp-server
+add address-pool=dhcp_pool_lan disabled=no interface=bridge_lan lease-time=1d10m name=dhcp_srv_lan
+
+/ip dhcp-server network
+add address=192.168.72.0/24 dns-server=8.8.8.8 gateway=192.168.72.1
+
+
+/system reboot
+
+

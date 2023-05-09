@@ -1,0 +1,30 @@
+Заключительные натсройки
+/system clock set time-zone-name=Europe/Kiev
+/system ntp client set enabled=yes primary-ntp=62.149.0.30 secondary-ntp=31.28.161.71
+
+
+/system ntp client set enabled=yes primary-ntp=0.ua.pool.ntp.org secondary-ntp=1.ua.pool.ntp.org;
+
+Если не работает синхронизация времени через SNTP Client в Mikrotik, то во вкладке IP -> DHCP Client (далее ваше подключение) уберите галочку Use Peer NTP, после этого все будет нормально синхронизироваться. Галочка отвечает за получение времени от вашего провайдера, и если у него нет этой услкгт будете мучаться
+
+
+/system ntp client set enabled=yes primary-ntp=ntp.time.in.ua secondary-ntp=ntp2.time.in.ua
+
+
+
+
+
+Безопасность
+
+/ip neighbor discovery-settings
+set discover-interface-list=LAN
+
+/tool mac-server
+set allowed-interface-list=LAN
+
+/tool mac-server mac-winbox
+set allowed-interface-list=LAN
+
+
+
+/tool bandwidth-server set enabled=no 

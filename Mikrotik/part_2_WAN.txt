@@ -1,0 +1,35 @@
+Натсройка интерфейса WAN (ether1 - интерфейс, смотрящий в интрнет)
+
+Чтобы не путать сетевые интерфейсы, опишем их с помощью комментариев.
+/interface ethernet set ether1 comment=WAN
+
+---------Настройка Dynamic IP----------
+/ip dhcp-client
+add  comment=WAN_DHCP dhcp-options=hostname,clientid disabled=no interface=ether1 use-peer-ntp=no
+
+
+use-peer-ntp=no - не использовать сервер времени провайдера
+
+--------------Настройка Static IP-----------------------
+Например IP 213.160.132.222/30, gate 213.160.132.221 заменить на свое)
+
+255.255.255.0		/24
+255.255.255.128		/25
+255.255.255.192		/26
+255.255.255.224		/27
+255.255.255.240		/28
+255.255.255.248		/29
+255.255.255.252		/30
+
+/ip address add address 213.160.132.222/30 interface ether1 comment=IP_adress_ISP
+/ip route add gateway=213.160.132.221 comment=Gate
+
+
+
+После этого должен заработать ping
+___
+Подмена mac-адреса
+/interface ethernet set ether1 mac-address=00:11:22:33:44:55
+где 00:11:22:33:44:55 — mac зарезервированный у провайдера.
+Lesnoy
+/interface ethernet set ether6 mac-address=6C:3B:6B:49:F8:B0

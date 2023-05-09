@@ -1,0 +1,41 @@
+----------Part 1
+сбрасываем настройки маршрутизатора без создания дефолтной конфигурации
+
+/system reset-configuration no-defaults=yes skip-backup=yes
+#########################################################################################
+/use add name=exch_adm password=PASSWORD!!! group=full
+/user disable admin
+/ip service disable api,api-ssl,ftp,telnet,www-ssl
+/system identity set name=Sli_test_mikrotik
+
+/interface bridge { 
+add name=bridge_lan 
+set bridge_lan auto-mac=no admin-mac=[get bridge_lan mac-address] 
+}
+/interface bridge port add bridge=bridge_lan interface=all
+
+/ip dhcp-client add  dhcp-options=hostname,clientid disabled=no interface=bridge_lan use-peer-ntp=no
+
+/system clock set time-zone-name=Europe/Kiev
+/system ntp client set enabled=yes primary-ntp=62.149.0.30 secondary-ntp=31.28.161.71
+/system scheduler add interval=1w name=Reboot on-event="/system reboot" policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon start-date=apr/26/2023 \
+    start-time=03:00:00
+
+Можно обновить прошивку
+
+#########################################################################################
+/interface wireless security-profiles
+
+###	set [ find default=yes ] supplicant-identity=Esplanadnaya_1
+
+add authentication-types=wpa2-psk comment=walker11 eap-methods="" group-key-update=55m management-protection=allowed mode=dynamic-keys name=\
+    Upfk_wifi_profile supplicant-identity="" wpa2-pre-shared-key=walker11
+
+/interface wireless
+set [ find default-name=wlan1 ] band=2ghz-onlyn country=ukraine disabled=no distance=indoors frequency=auto installation=indoor mode=ap-bridge \
+    security-profile=Upfk_wifi_profile  wireless-protocol=802.11 ssid=Esplanadnaya#4
+
+set [ find default-name=wlan2 ] band=5ghz-n/ac country=ukraine disabled=no distance=indoors frequency=auto installation=indoor mode=ap-bridge \
+    security-profile=Upfk_wifi_profile  wireless-protocol=802.11 ssid=Esplanadnaya#4_5Ghz
+
+

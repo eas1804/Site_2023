@@ -1,0 +1,66 @@
+Гостевая wi-fi
+1. Создать новый security профайл в каоторм задать пароль
+
+/interface wireless security-profiles
+add authentication-types=wpa2-psk eap-methods="" mode=dynamic-keys name=profile_guest_wi-fi supplicant-identity="" wpa2-pre-shared-key=Pass55word!
+
+2. Создать новый виртуальный wi-fi интерфейс guest-wifi
+
+/interface wireless
+add disabled=no mac-address=00:00:00:00:00:00 master-interface=wlan1 name=guest-wifi security-profile=profile_guest_wi-fi ssid=For_Guest wds-cost-range=0 wds-default-cost=0  wps-mode=disabled
+
+3. Добавить виртуальный wifi интерфейс в гостевой бридж
+
+
+/interface bridge { 
+add name=bridge_guest
+set bridge_guest auto-mac=no admin-mac=[get bridge_guest mac-address] 
+}
+
+/interface bridge port
+add bridge=bridge_guest interface=guest-wifi
+
+4. Присвоить IP 
+
+/ip address
+add address=192.168.98.1/24 interface=bridge_guest network=192.168.98.0
+
+5. Создать пул адресов, которые будут выдаваться госевой сети
+
+/ip pool add name=dhcp_pool_guest ranges=192.168.98.2-192.168.98.254
+
+6. Натсройить DHCP сервер
+
+/ip dhcp-server 
+add address-pool=dhcp_pool_guest disabled=no interface=bridge_guest lease-time=50m name=dhcp_guest
+
+
+Если не срабоатет - сделать через winbox
+ip dhcp-server 
+Задать 
+name=dhcp_guest_wifi
+interface=guest-wifi
+lease-time=35m
+address-pool=dhcp_pool_guest
+
+задать параметры сети
+	
+/ip dhcp-server network add address=192.168.98.0/24 dns-server=192.168.98.1,8.8.8.8 gateway=192.168.98.1
+
+7.
+РАзрешить forward для  доступа в интернет
+
+/ip firewall filter
+add action=accept chain=forward comment="Acsess form guest Wi-fi" src-address=192.168.98.0/24
+Не забыить Поднять правила выше
+
+8.Запретить госевой сети видеть основную сеть.
+
+/ip route rule
+add action=unreachable dst-address=192.168.98.0/24 routing-mark="" src-address=172.16.18.0/24
+add action=unreachable dst-address=172.16.18.0/24 src-address=192.168.98.0/24
+
+
+
+___
+

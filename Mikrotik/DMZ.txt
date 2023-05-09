@@ -1,0 +1,18 @@
+Как настроить демилитаризованную зону DMZ в Mikrotik Router OS
+
+1. чтобы все приходящие запросы, не зависимо от порта, попадали на конкретный IP адрес минуя NAT и Firewall маршрутизатора
+
+/ip firewall nat add chain=dstnat in-interface=[WAN_Interface] action=dst-nat to-addresses=[IP_Address_of_DMZ_host]
+
+/ip firewall nat add chain=dstnat in-interface=ether1 action=dst-nat to-addresses=192.168.70.29
+
+
+2. бывают ещё такие случаи, например, когда вам необходимо сохранить доступ к маршрутизатору извне (из Интернета), скажем по протоколу SSH. 
+Для этого нам необходимо оставить доступ по 22 порту именно к Mikrotik.
+
+а запись должна быть выше чем запись с демилитаризацией определённого компьютера
+/ip firewall nat add chain=dstnat in-interface= [WAN_Interface] protocol=tcp dst-port=22 action=accept
+
+
+add action=accept chain=dstnat dst-port=22,8291,1972,2005,1804,1998 in-interface=ether1 protocol=tcp
+

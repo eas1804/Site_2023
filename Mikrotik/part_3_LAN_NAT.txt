@@ -1,0 +1,58 @@
+LAN
+
+1. Создаем bridge для LAN с именем bridge_lan
+
+/interface bridge { 
+add name=bridge_lan 
+set bridge_lan auto-mac=no admin-mac=[get bridge_lan mac-address] 
+}
+
+
+2. Добовляем потры в bridge_lan
+/interface bridge port
+add bridge=bridge_lan interface=wlan1
+
+
+add bridge=bridge_lan interface=ether2
+add bridge=bridge_lan interface=ether3
+add bridge=bridge_lan interface=ether4
+
+add bridge=bridge_lan interface=ether5
+add bridge=bridge_lan interface=ether6
+add bridge=bridge_lan interface=ether7
+add bridge=bridge_lan interface=ether8
+add bridge=bridge_lan interface=ether9
+add bridge=bridge_lan interface=ether10
+
+add bridge=bridge_lan interface=wlan2
+
+
+3. задаем IP адрес для bridge_lan
+/ip address
+	add address=172.16.18.1/24 interface=bridge_lan network=172.16.18.0 comment=LAN  
+или
+	add address=192.168.72.1/24 interface=bridge_lan network=192.168.72.0 comment=LAN  
+
+4. Добавляем интерфейсы в интерфейслисты
+/interface list 
+add comment=defconf name=WAN 
+add comment=defconf name=LAN 
+/interface list member 
+add interface=ether1 list=WAN 
+add interface=bridge_lan list=LAN 
+
+---------srcNat---------------
+/ip firewall nat add chain=srcnat action=masquerade out-interface-list=WAN
+
+---------DstNAT---------------
+ПРоброс портов
+Далее обращения из интернета к порту 10000, перенаправляем во внутреннюю сеть на устройство 192.168.88.250 и порт 80.
+/ip firewall
+nat add chain=dstnat action=netmap dst-port=10000 in-interface=ether1 protocol=tcp to-addresses=192.168.88.250 to-ports=80
+
+
+/ip firewall filter
+add chain=forward protocol=tcp dst-port=80,5432 action=accept comment=”80 for Enegrocenter, 5432 – for PostgressSQL”
+add chain=forward protocol=udp dst-port=1194 action=accept comment=”OpenVPN”
+
+

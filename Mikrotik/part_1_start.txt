@@ -1,0 +1,11 @@
+сбрасываем настройки маршрутизатора без создания дефолтной конфигурации
+
+/system reset-configuration no-defaults=yes skip-backup=yes
+
+
+/use add name=exch_adm password=PASSWORD!!! group=full
+/user disable admin
+/ip service disable api,api-ssl,ftp,telnet,www-ssl
+
+/system identity set name=Company
+

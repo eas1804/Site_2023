@@ -1,0 +1,31 @@
+
+
+
+
+/ip firewall filter
+add action=accept chain=input comment=""established,related,untracked" connection-state=established,related,untracked 
+add action=drop chain=input comment="drop invalid" connection-state=invalid
+add action=accept chain=input comment="icmp on" protocol=icmp src-address-list=allowed_to_router
+add action=accept chain=input comment="defconf: accept to local loopback (for CAPsMAN)" dst-address=127.0.0.1
+add action=accept chain=input dst-port=8291,22,80 protocol=tcp src-address-list=allowed_to_router comment="Acsess from My IP (allowed_to_router)”
+add action=drop chain=input comment="defconf: drop all not coming from LAN" in-interface-list=!LAN
+
+
+
+
+
+
+add action=fasttrack-connection chain=forward comment="defconf: fasttrack" connection-state=established,related hw-offload=yes
+add action=accept chain=forward comment="defconf: accept established,related, untracked" connection-state=established,related,untracked
+add action=drop chain=forward comment="defconf: drop invalid" connection-state=invalid
+add action=drop chain=forward comment="defconf: drop all from WAN not DSTNATed" connection-nat-state=!dstnat connection-state=new in-interface-list=WAN
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,64 @@
+Гостевая wi-fi
+1. 
+/interface wireless security-profiles
+add authentication-types=wpa2-psk eap-methods="" mode=dynamic-keys name=profile_guest_wi-fi supplicant-identity="" wpa2-pre-shared-key=Pass55word!
+
+/interface wireless
+add disabled=no mac-address=00:00:00:00:00:00 master-interface=wlan1 name=guest-wifi security-profile=profile_guest_wi-fi ssid=For_Guest wds-cost-range=0 wds-default-cost=0  wps-mode=disabled
+
+
+
+
+/ip pool add name=dhcp_pool_guest ranges=192.168.98.2-192.168.98.254
+
+---- Я бы добваил гстевой wifi интерфейс в гостевой бридж -----
+
+
+/ip dhcp-server 
+add address-pool=dhcp_pool_guest disabled=no interface=guest-wifi lease-time=35m name=dhcp_guest_wifi
+
+Если не срабоатет - сделать через winbox
+ip dhcp-server 
+Задать 
+name=dhcp_guest_wifi
+interface=guest-wifi
+lease-time=35m
+address-pool=dhcp_pool_guest
+
+
+	
+/ip dhcp-server network add address=192.168.98.0/24 dns-server=192.168.98.1,8.8.8.8 gateway=192.168.98.1
+
+/ip address add address=192.168.98.1/24 interface=guest-wifi network=192.168.98.0
+
+РАзрешить forward для  доступа в интернет
+
+/ip firewall filter
+add action=accept chain=forward comment="Acsess form guest Wi-fi" src-address=192.168.98.0/24
+
+
+Запретить госевой сети видеть основную сеть.
+Есть 2 варианта:
+/ip route rule
+add action=unreachable dst-address=192.168.98.0/24 routing-mark="" src-address=192.168.12.0/24
+add action=unreachable dst-address=192.168.12.0/24 src-address=192.168.98.0/24
+
+или
+/ip firewall filter
+add action=drop chain=forward comment="Deny guest requests" dst-address=192.168.12.0/24 src-address=192.168.98.0/24
+add action=drop chain=forward comment="Deny guest requests" dst-address=192.168.98.0/24 src-address=192.168.12.0/24
+Не забыить Поднять правила выше
+
+___
+Добавить виртуальный wifi интерфейс в гостевой бридж
+
+
+/interface bridge { 
+add name=bridge_guest2
+set bridge_guest2 auto-mac=no admin-mac=[get bridge_guest2 mac-address] 
+}
+
+/interface bridge port
+add bridge=bridge_guest interface=guest-wifi
+
+
