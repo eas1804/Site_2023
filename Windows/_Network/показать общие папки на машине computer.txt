@@ -1,0 +1,3 @@
+показать общие папки на машине computer:
+
+net view computer

@@ -1,0 +1,2 @@
+/ip dhcp-client print file=disk1/ipconfig.txt
+/tool e-mail send server="smtp.gmail.com" port=25 user="backup@gmail.com" password=Win2021 start-tls=yes to="report@gmail.com" from="backup@gmail.com" subject="ip Home" body="Home ip" file=disk1/ipconfig.txt;

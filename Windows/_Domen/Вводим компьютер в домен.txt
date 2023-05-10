@@ -1,0 +1,5 @@
+Вводим компьютер в домен
+
+netdom join vm1 /domain:contoso.com /userd:administrator /password:*
+
+и вводим пароль указанной учетной записи. Перезагружаемся.

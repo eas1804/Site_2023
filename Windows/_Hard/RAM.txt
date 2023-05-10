@@ -1,0 +1,10 @@
+От имени админа:
+Количество свободной ОЗУ
+
+wmic OS get FreePhysicalMemory /Value
+
+Количество ОЗУ
+
+wmic computersystem get TotalPhysicalMemory
+
+

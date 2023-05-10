@@ -1,0 +1,9 @@
+Какие порты прослушиваются
+
+netstat -anb |findstr LISTENING
+
+netstat -aon | more
+
+· Слушает ли порт 3389
+
+netstat -aon | findstr 3389

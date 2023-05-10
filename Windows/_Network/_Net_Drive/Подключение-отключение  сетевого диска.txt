@@ -1,0 +1,11 @@
+Подключение сетевого диска Z: из \\ubuntu\backup
+
+net use z: \\ubuntu\backup
+
+· добавить аутентификацию пользователя с логином и паролем
+
+net use z:\\ubuntu\backup /user:Vasya P@$$W0rd
+
+· Отключение сетевого диска:
+
+net use z: /delete

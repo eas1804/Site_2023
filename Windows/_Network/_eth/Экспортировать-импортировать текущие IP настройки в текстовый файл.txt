@@ -1,0 +1,7 @@
+Экспортировать текущие IP настройки в текстовый файл
+
+netsh -c interface dump > d:\ip_info.txt
+
+импортировать IP настройки из текстового файла
+
+netsh -f d:\ip_info.txt

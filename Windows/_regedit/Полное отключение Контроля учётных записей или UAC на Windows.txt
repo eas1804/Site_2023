@@ -1,0 +1,5 @@
+Полное отключение Контроля учётных записей или UAC на Windows
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+
+Меняем значение ключа EnableLUA с 1 на 0. Перезагружаемся

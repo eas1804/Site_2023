@@ -1,0 +1,15 @@
+1. Просмотр, установлен ли SNMP
+
+Dism /online /get-features /format:table | findstr SNMP
+
+2. Добавить SNMP
+
+dism /online /enable-feature /featurename:SNMP
+
+3. Подключиться с компа, где установлен GUI
+
+services.msc
+
+4. Подключаемся к серверу Hyper-V и настраиваем безопасность
+
+SNMP Service

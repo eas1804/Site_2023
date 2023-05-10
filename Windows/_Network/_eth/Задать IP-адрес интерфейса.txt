@@ -1,0 +1,9 @@
+Задать IP-адрес интерфейса
+
+netsh int ip set address "Local Area Connection" static 192.168.2.101 255.255.255.0 192.168.2.254  1
+
+
+netsh interface ip set address name="Local Area Connection" static 192.168.0.100 255.255.255.0 192.168.0.1 1
+
+netsh interface ip set address "Local Area Connection" dhcp
+netsh interface ip set dns "Local Area Connection" dhcp

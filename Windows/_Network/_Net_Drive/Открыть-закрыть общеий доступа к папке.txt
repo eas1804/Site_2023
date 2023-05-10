@@ -1,0 +1,26 @@
+	Открытие общего доступа к папке Read only
+
+net share obmen=d:\public
+
+где obmen — имя шары и d:\public — путь
+
+	Открытие общего доступа к папке Full
+
+Открытие общего доступа к папке c полными правами для всех пользователей сети:
+
+net share obmen=c:\users\vasya\ /grant:everyone,full
+
+	Открытие общего доступа к папке c полными правами для Vasya:
+
+net share obmen=c:\users\vasya\ /grant:Vasya,full
+
+net share obmen=c:\users\vasya\ /GRANT:vasya,FULL /GRANT:petya,READ
+
+Если есть пробелы — использовать кавычки
+
+net share "M2_Veeam Backup"="D:\M2_Veeam Backup" /grant:backup_m2,full
+
+
+Закрыть общий доступ
+
+net share obmen /DELETE

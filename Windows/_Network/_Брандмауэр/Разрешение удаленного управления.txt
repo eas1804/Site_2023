@@ -1,0 +1,5 @@
+Разрешение удаленного управления
+
+чтобы инструменты управления (например, консоль управления Microsoft) могли подключаться к удаленным узлам.
+
+netsh advfirewall firewall set rule group= "remote administration" new enable=yes

@@ -1,0 +1,7 @@
+Как зайти на сетевую шару без авторизации.
+
+Через консоль с правами администратора проблема решается следующим образом:
+
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters" /v AllowInsecureGuestAuth /t REG_DWORD /d 1
+
+net stop LanmanWorkstation && net start LanmanWorkstation

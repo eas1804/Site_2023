@@ -1,0 +1,3 @@
+Управление сетевыми паролями
+
+rundll32.exe keymgr.dll,KRShowKeyMgr

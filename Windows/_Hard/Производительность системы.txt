@@ -1,0 +1,22 @@
+Производительность системы
+
+taskmgr
+
+resmon
+
+perfmon — добавлять счетчики производительности
+
+· НАпример:
+
+Phisical disk
+
+Idle Time Время простоя
+
+Aver disk BITE TRABSFER
+
+Curent disk Quere lenght очередь запроса (1-2 приемлема) если больше 2х — нужно разбираться (обращать внимание на масштаб. 10)
+
+Aver disk sec transfer среднее вермя выполнения запроса
+
+Disk transfer sec
+

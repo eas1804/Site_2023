@@ -1,2 +1,3 @@
 set WIN_USER=Name_of_user
+
 reg add «HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList» /v %WIN_USER% /t reg_dword /d

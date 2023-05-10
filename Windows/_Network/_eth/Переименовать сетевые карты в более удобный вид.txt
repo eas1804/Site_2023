@@ -1,0 +1,4 @@
+Переименовать сетевые карты в более удобный вид
+
+netsh interface set interface name="Подключение по локальной сети" newname="DMZ" 
+netsh interface set interface name="Подключение по локальной сети 3" newname="LAN"

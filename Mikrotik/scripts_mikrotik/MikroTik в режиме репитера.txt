@@ -1,0 +1,21 @@
+MikroTik в режиме репитера
+
+1. сбрасываем настройки маршрутизатора
+/system reset-configuration no-defaults=yes skip-backup=yes
+
+2. Используем команду автоматической настройки, которая настроит беспроводной интерфейс для подключения к точке доступа и создаст виртуальный интерфейс, 
+создаст интерфейс моста и добавит оба (основной и виртуальный) интерфейсы к портам моста.
+
+В параметрах указываем беспроводной интерфейс, название сети Wi-Fi и пароль
+
+/interface wireless setup-repeater number=wlan1 ssid=имя_wifi passphrase=password
+
+3. Добавляем необходимые интерфейсы в мост к беспроводным и создаем IP-адрес на интерфейсе моста согласно вашей сетевой адресации.
+
+/interface bridge port add bridge=bridge1 interface=all
+
+/ip address add address=192.168.88.2/24 interface=bridge1 network=192.168.88.0
+
+
+Link
+https://habr.com/ru/articles/505416/

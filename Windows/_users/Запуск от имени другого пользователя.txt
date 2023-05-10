@@ -1,3 +1,10 @@
 runas /user:administrator "C:\Windows\cmd.exe"
 
 runas /savecred:/user:admin@mydomain "C:\Windows\cmd.exe" — с сохранением пароля
+
+
+Запуск программы от имени администратора
+
+runas /savecred /user:admin@domen "CMD /C start /B "C:\TeamViewer\TeamViewerPortable.exe"
+
+runas /savecred:/user:admin@mydomain "C:\Windows\cmd.exe"

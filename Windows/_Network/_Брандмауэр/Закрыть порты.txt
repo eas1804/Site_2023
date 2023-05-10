@@ -1,0 +1,13 @@
+Закрыть порты 135, 137, 138, 139, 445, 5000
+
+netsh advfirewall firewall add rule dir=in action=block protocol=tcp localport=135 name="Block_TCP-135"
+
+netsh advfirewall firewall add rule dir=in action=block protocol=tcp localport=137 name="Block_TCP-137"
+
+netsh advfirewall firewall add rule dir=in action=block protocol=tcp localport=138 name="Block_TCP-138"
+
+netsh advfirewall firewall add rule dir=in action=block protocol=tcp localport=139 name="Block_TCP-139"
+
+netsh advfirewall firewall add rule dir=in action=block protocol=tcp localport=445 name="Block_TCP-445"
+
+netsh advfirewall firewall add rule dir=in action=block protocol=tcp localport=5000 name="Block_TCP-5000"

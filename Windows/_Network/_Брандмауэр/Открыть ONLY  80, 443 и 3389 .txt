@@ -1,0 +1,3 @@
+Открыть порты 80, 443 и 3389 порты.
+
+netsh advfirewall firewall add rule dir=in action=block protocol=TCP localport=1-79,81-442,444-3388,3390-65535 name="Block_TCP"

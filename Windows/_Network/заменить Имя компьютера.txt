@@ -1,0 +1,11 @@
+заменить Имя компьютера
+
+Смотрим имя компьютера командой
+
+hostname
+
+Меняем имя компьютера командой
+
+netdom renamecomputer Old_name/newname:new_name
+
+где Old_name – старое имя вашего компьютера, а new_name – новое.

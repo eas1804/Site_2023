@@ -1,0 +1,27 @@
+Как включить RDP
+
+	Разрешаем подключения:
+
+reg add «HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server» /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+	Запуск службы:
+
+net start Termservice
+
+	Настройка брендмауэра:
+
+netsh advfirewall firewall add rule name="RDP_is_on" dir=in protocol=TCP localport=3389 action=allow
+
+	Подключение по RDP только с определенных IP-адресов
+
+netsh advfirewall firewall add rule name="RDP Whitelist" dir=in action=allow protocol=TCP localport=3389 remote="192.168.111.1,192.168.112.2,192.168.33.0/24,192.168.0.1-192.168.0.51"
+
+Создает правило с именем «RDP Whitelist» которое разрешает подключение к порту 3389 с адресов:
+
+192.168.111.1
+
+192.168.112.2
+
+192.168.33.0/24
+
+192.168.0.1-192.168.0.51

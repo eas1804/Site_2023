@@ -1,0 +1,3 @@
+/interface wireless disable wlan1
+
+/interface wireless enable wlan1

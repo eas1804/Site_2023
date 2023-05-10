@@ -1,0 +1,46 @@
+Синхронизация времени через интернет
+
+Создать reg файл
+
+Windows Registry Editor Version 5.00
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\W32Time\Config]
+«MaxNegPhaseCorrection»=dword:ffffffff
+«MaxPosPhaseCorrection»=dword:ffffffff
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\W32Time\Parameters]
+«NtpServer»=»pool.ntp.org,0x01»
+
+Запускать cmd файл при включении компа
+
+sc config w32time start= auto
+net start w32time
+w32tm /config /syncfromflags:manual /manualpeerlist:pool.ntp.org,0x01
+w32tm /config /update
+w32tm /resync
+sc config w32time start= demand
+
+Использование команды w32tm
+w32tm /query /source — выводит источник времени, на который настроена служба Windows Time
+w32tm /monitor — при запуске на контроллере домена (КД) показывает, насколько отличается время на других КД и на внешнем источнике времени, на который настроен PDC
+w32tm /config /syncfromflags:manual /manualpeerlist:ru.pool.ntp.org — настройка в качестве источника времени пула ntp-серверов ru.pool.ntp.org
+w32tm /config /update — эту команду необходимо выполнить, чтобы служба времени применила новые настройки
+w32tm /resync — выполнение синхронизации времени
+w32tm /unregister — отменяет регистрацию службы и удаляет настройки из реестра
+w32tm /register — регистрирует службу и восстанавливает настройки по умолчанию
+
+Настройки службы Windows Time хранятся в реестре в ветке
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\
+
+Период синхронизации задается в ветке реестра
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\W32Time\TimeProviders\NtpClient
+ключ SpecialPollInterval содержит интервал синхронизации в секундах
+
+Tips:
+Если у вас несколько контроллеров домена, при использовании виртуализированного контроллера домена необходимо обязательно отключать средство синхронизации времени гостевой ОС с хостовой — контроллеры домена используют свой собственный механизм синхронизации времени, использование вместе с ним синхронизации времени с хостовой машиной может привести к различным проблемам, вплоть до проблем с репликацией.
+Если у вас один единственный контроллер в домене и он виртуализированный, то включить синхронизацию времени с хостовой машиной можно, однако обязательно настройте на хостовой машине синхронизацию с внешним источником времнени и уменьшите интервал синхронизации, например, до одного дня.
+
+Виртуализированный корневой PDC должен быть обязательно настроен на получение времени от внешнего источника, в противном случае время на компьютерах в сети может отставать или спешить на значительное значение.
+
+http://netmate.ru/blogs/moskalev/5.php

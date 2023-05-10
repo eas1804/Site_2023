@@ -1,0 +1,5 @@
+Перезапустить DNS
+
+net stop DNS
+
+net start DN

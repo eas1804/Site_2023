@@ -1,0 +1,15 @@
+Делаем бэкап, пауза 10 минут (600 сек) и загружаем бэкап обратно. 
+Логика такая. 
+Запустили скрипт, он сделал бэкап. 
+Дальше вы делаете какие-то настройки. 
+
+Если вас не отключило, останавливаете скрипт. 
+Если отключило, ждете, когда скрипт откатит конфиг.
+
+/system backup save password=»secret» name=disconnect
+delay 600
+/system backup load name=disconnect.backup password=»secret»
+
+Остановить скрипт
+
+/system script job remove [find script=Name_of_script]

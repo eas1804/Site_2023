@@ -1,0 +1,7 @@
+Включить сетевое обнаружение:
+
+netsh advfirewall firewall set rule group="Обнаружение сети" new enable=Yes
+
+или
+
+netsh advfirewall firewall set rule group=”network discovery” new enable=yes

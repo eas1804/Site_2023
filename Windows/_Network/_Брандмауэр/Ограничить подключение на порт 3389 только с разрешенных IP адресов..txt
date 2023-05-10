@@ -1,0 +1,3 @@
+Ограничить подключение на порт 3389 только с разрешенных IP адресов.
+
+netsh advfirewall firewall add rule dir=in action=allow protocol=TCP localport=3389 remoteip=192.168.0.0/24,x.x.x.x name="RDP"

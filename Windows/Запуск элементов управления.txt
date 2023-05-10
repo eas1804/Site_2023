@@ -1,0 +1,181 @@
+Команды для запуска элементов управления:
+
+· Сетевые подключения:
+
+ncpa.cpl
+
+· Свойства системы:
+
+sysdm.cpl
+
+· Установка и удаление программ:
+
+appwiz.cpl
+
+· Учетные записи пользователей:
+
+nusrmgr.cpl
+
+· Дата и время:
+
+timedate.cpl
+
+· Свойства экрана:
+
+desk.cpl
+
+· Брэндмауэр Windows:
+
+firewall.cpl
+
+· Мастер установки оборудования:
+
+hdwwiz.cpl или hdwwiz.exe
+
+· Свойства Интернет:
+
+inetcpl.cpl
+
+· Специальные возможности:
+
+access.cpl
+
+· Свойства мыши:
+
+control Main.cpl
+
+· Свойства клавиатуры:
+
+control Main.cpl,@1
+
+· Язык и региональные возможности:
+
+intl.cpl
+
+· Игровые устройства:
+
+joy.cpl
+
+· Свойства: Звуки и аудиоустройства:
+
+mmsys.cpl
+
+· Мастер настройки сети:
+
+netsetup.cpl
+
+· Управление электропитанием:
+
+powercfg.cpl
+
+· Центр обеспечения безопасности:
+
+wscui.cpl
+
+· Автоматическое обновление:
+
+wuaucpl.cpl
+
+2. Панель управления
+
+· Администрирование
+
+control admintools
+
+· Настройки экрана / Персонализация
+
+control desktop
+
+· Свойства папок
+
+control folders
+
+· Шрифты
+
+control fonts
+
+· Свойства клавиатуры
+
+control keyboard
+
+· Свойства мыши
+
+control mouse
+
+· Устройства и принтеры
+
+control printers
+
+· Планировщик заданий
+
+control schedtasks
+
+Запускать из окружения пользователя, от другого имени, можно запускать большинство элементов управления, кроме тех, которые используют explorer. Например Панель «Сетевые подключения» использует explorer.
+
+· Управление компьютером (Computer Management)
+
+compmgmt.msc
+
+· Редактор объектов локальной политики (Group Policy Object Editor):
+
+gpedit.msc
+
+· Результирующая политика (результат применения политик):
+
+rsop.msc
+
+· Службы (Services):
+
+services.msc
+
+· Общие папки (Shared Folders):
+
+fsmgmt.msc
+
+· Диспетчер устройств (Device Manager):
+
+devmgmt.msc
+
+· Локальные пользователи и группы (Local users and Groups):
+
+lusrmgr.msc
+
+· Локальная политика безопасности (Local Security Settings):
+
+secpol.msc
+
+· Управление дисками (Disk Management):
+
+diskmgmt.msc
+
+· Просмотр событий
+
+eventvwr.msc
+
+· Сертификаты — текущий пользователь
+
+certmgr.msc
+
+· управление доверенным платформенным модулем (TPM) на локальном компьютере.
+
+tpm.msc
+
+Active Directory Пользователи и компьютеры (AD Users and Computers): dsa.msc
+
+Диспетчер служб терминалов (Terminal Services Manager): tsadmin.msc
+
+Консоль управления GPO (Group Policy Management Console): gpmc.msc
+
+Настройка терминального сервера (TS Configuration): tscc.msc
+
+Маршрутизация и удаленый доступ (Routing and Remote Access): rrasmgmt.msc
+
+Active Directory Домены и Доверие (AD Domains and Trusts): domain.msc
+
+Active Directory Сайты и Доверие (AD Sites and Trusts): dssite.msc
+
+Политика безопасности домена (Domain Security Settings): dompol.msc
+
+Политика безопасности контроллера домена (DC Security Settings): dcpol.msc
+
+Распределенная файловая система DFS (Distributed File System): dfsgui.msc
