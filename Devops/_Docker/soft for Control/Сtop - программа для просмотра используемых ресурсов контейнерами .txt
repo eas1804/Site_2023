@@ -1,0 +1,21 @@
+Очень удобная программа для просмотра используемых ресурсов контейнерами - Сtop.
+в ctop все метрики собраны в одно место для каждого контейнера. 
+
+Docker обычно запускаю на Ubuntu, для неё есть репа:
+# echo "deb http://packages.azlux.fr/debian/ buster main" \
+| tee /etc/apt/sources.list.d/azlux.list
+# wget -qO - https://azlux.fr/repo.gpg.key | apt-key add -
+# apt update
+# apt install docker-ctop
+
+После этого запускаете ctop и наслаждаетесь красотой. 
+
+Можно вообще ничего не устанавливать локально, а запустить ctop в docker, пробросив ему docker.sock.
+# docker run --rm -ti \
+ --name=ctop \
+ --volume /var/run/docker.sock:/var/run/docker.sock:ro \
+ quay.io/vektorlab/ctop:latest
+
+Помимо непосредственно отображения используемых ресурсов, можно выбрать контейнер и быстро посмотреть его логи, остановить/перезапустить или провалиться внутрь через exec shell. Если постоянно работаете с контейнерами, то программа must have, особенно для разработчиков, которые постоянно эти контейнеры гоняют. Посоветуйте им, спасибо скажут. 
+
+Репозиторий - https://github.com/bcicen/ctop

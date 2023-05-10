@@ -1,0 +1,19 @@
+Docker есть под Windows
+Работает нормально, всё удобно. 
+Ставится отдельная приложуха и всё управление через неё - запуск и остановка контейнеров, просмотр логов, образов и т.д. 
+
+Для установки на Windows 10 или 11, достаточно скачать и установить приложение Docker Desktop for Windows 
+(https://hub.docker.com/editions/community/docker-ce-desktop-windows). 
+А также включить компонент Windows - WSL2.
+
+Установка Docker возможна и на Windows Server. 
+Для этого сначала надо установить компонент PowerShell - DockerMsftProvider
+ (https://www.powershellgallery.com/packages/DockerMsftProvider/). 
+
+После этого через Powershell ставим сам докер:
+Install-Package -Name docker -ProviderName DockerMsftProvider
+
+Управлять контейнерами на сервере можно в том числе и с помощью Windows Admin Center. 
+Для этого надо установить расширение "Контейнеры". 
+
+Я себе локально установил dns сервер от Adguard в контейнере, чтобы было удобнее отлавливать локальные запросы к DNS. 

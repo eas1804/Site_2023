@@ -1,0 +1,2 @@
+docker logs nginx-proxy
+docker logs --tail 100 nginx-proxy

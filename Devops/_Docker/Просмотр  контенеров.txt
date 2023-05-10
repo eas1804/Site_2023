@@ -1,6 +1,9 @@
 Просмотр всех контенеров
 docker ps
 
+docker ps -a
+
+
 docker container ls --format 'table {{.Names}} | {{.Status}}'| nl -v 0
 
 Посмотреть все остановленные контейнеры

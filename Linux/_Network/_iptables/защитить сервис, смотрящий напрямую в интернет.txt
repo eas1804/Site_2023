@@ -1,0 +1,36 @@
+serveradmin.ru
+
+С помощью Iptables можно очень хорошо защитить сервис, смотрящий напрямую в интернет. В частности, будет актуально в том числе для защиты asterisk (https://t.me/srv_admin/1646), про которую я недавно рассказывал. 
+
+Я покажу несколько примеров с набором правил iptables. Начнём с защиты от сканирования портов. Будем банить на 10 минут всех, кто обратится не на открытые порты, например, 5060 и 22.
+
+iptables -A INPUT -m recent --rcheck --seconds 600 --name BANLIST -j DROP
+iptables -A INPUT -p tcp -m multiport ! --dports 22,5060 -m recent --set --name BANLIST -j DROP
+iptables -A INPUT -p tcp --syn --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --syn --dport 5060 -j ACCEPT
+
+Попробуйте с помощью telnet тыкнуться в любой другой порт, отличный от 22 и 5060. Тут же получите бан.
+
+Защита от bruteforce средствами iptables на примере ssh порта:
+
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --name BANLIST --set
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --name BANLIST --update --seconds 60 --rttl --hitcount 3 -j DROP
+iptables -A INPUT -p tcp --syn --dport 22 -j ACCEPT
+
+Разрешаем только 3 запроса в минуту, третий должен быть удачным, чтобы подключиться, иначе ip адрес уходит в бан на 60 секунд.
+
+Можно то же самое сделать с помощью модуля hashlimit. С одного ip разрешаем 2 запроса на соединение (NEW) в минуту (2/m) все остальные пакеты (NEW) c этого ip блокируется:
+
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m hashlimit
+--hashlimit-name BANLIST --hashlimit-mode srcip --hashlimit-above 2/m --hashlimit-burst 2 -j DROP
+iptables -A INPUT -p tcp --syn --dport 22 -j ACCEPT
+
+Посмотреть содержимое создаваемого списка BANLIST можно так:
+cat /proc/net/xt_recent/BANLIST
+src=192.168.13.15 ttl: 128 last_seen: 4295998682 oldest_pkt: 1 4295998682
+src=10.8.0.2 ttl: 127 last_seen: 4296007032 oldest_pkt: 4 4295389944, 4295734397, 4295895199, 4296007032
+
+Подобные приёмы настраиваются относительно просто для тех, кто хоть немного разбирается в iptables, но при этом очень сильно повышают защищённость сервиса. Заблокировав скан портов и повесив службу на нестандартный порт, вы фактически скроете её от посторонних глаз. Найти её будет можно, но значительно сложнее, чем без подобной защиты. 
+
+Полный рабочий набор правил iptables с примерами выше:
+https://log.serveradmin.ru/OpfLstlV

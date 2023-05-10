@@ -1,0 +1,1 @@
+docker exec -it nginx-proxy /usr/sbin/nginx -s reload
