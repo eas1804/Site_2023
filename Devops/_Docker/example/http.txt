@@ -1,0 +1,32 @@
+==============Опубликовать файлы по http=============
+
+docker run -dit --name itisgood-web -p 8080:80 -v /home/name/website/:/usr/local/apache2/htdocs/ httpd:2.4 \
+--restart=unless-stopped 
+
+==================================
+Опубликовать файлы с русскими символами в именах по http
+1. Создать Dockerfile
+
+FROM ubuntu:16.04
+ENV TZ=Europe/Kiev
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN -определяют команды, выполняемые командной оболочкой, внутри образа
+
+RUN apt update
+RUN apt install apache2 -y
+EXPOSE 80
+
+2. Собрать образ
+docker build -t my_build/web1 .
+
+3.
+docker run -dit --name itisgood-web -p 8080:80 -v /home/name/website/:/var/www/html my_build/web1 /usr/sbin/apache2ctl -D FOREGROUND --restart=unless-stopped 
+
+где /home/name/website/ — каталог с файлами на локальном хосте
+
+usr/sbin/apache2ctl -D FOREGROUND — запустить Apache при запучке контейнера
+
+—name itisgood-web Имя конейнера
+-p 8080:80 порт машины:порт докера
+
+my_build/web1 билд, сделанный на шаге 2

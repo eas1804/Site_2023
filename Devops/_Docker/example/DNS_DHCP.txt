@@ -1,0 +1,38 @@
+Adguard DNS+DHCP
+
+1. Предварительные действия для Ubuntu
+
+mkdir /etc/systemd/resolved.conf.d
+
+vi /etc/systemd/resolved.conf.d/adguardhome.conf
+
+[Resolve]
+DNS=127.0.0.1
+DNSStubListener=no
+
+mv /etc/resolv.conf /etc/resolv.conf.backup
+
+s ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+systemctl reload-or-restart systemd-resolved
+===================DNS========================
+docker run --name adguard-dns \
+-v /opt/adguard/workdir:/opt/adguardhome/work \
+-v /opt/adguard/confdir:/opt/adguardhome/conf \
+-p 53:53/tcp -p 53:53/udp \
+-p 80:80/tcp -p 3000:3000/tcp \
+-p 443:443/tcp \
+-p 853:853/tcp \
+--restart unless-stopped \
+-d adguard/adguardhome
+
+===================DNS+DHCP========================
+
+В этом случае не указываются порты и указывается —network host
+
+docker run --name adguard-dhcp-dns \
+--network host \
+-v /opt/adguard/workdir:/opt/adguardhome/work \
+-v /opt/adguard/confdir:/opt/adguardhome/conf \
+--restart unless-stopped \
+-d adguard/adguardhome

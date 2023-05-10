@@ -1,0 +1,6 @@
+git config --global user.name "FIO"
+git config --global user.email "fio@gmail.com"
+
+
+Просмотреть, что было сконфигурировано
+git config -l

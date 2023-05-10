@@ -1,0 +1,2 @@
+git init /root/myproject/   
+git init .

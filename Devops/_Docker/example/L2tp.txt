@@ -1,0 +1,28 @@
+=============Docker_l2tp=================
+
+docker run \
+--name ipsec-vpn-server \
+--env-file ./vpn.env \
+--restart=always \
+-v ikev2-vpn-data:/etc/ipsec.d \
+-v /lib/modules:/lib/modules:ro \
+-p 500:500/udp \
+-p 4500:4500/udp \
+-d --privileged \
+hwdsl2/ipsec-vpn-server
+
+Содержимое файла vpn.env
+
+VPN_IPSEC_PSK=your_ipsec_pre_shared_key
+VPN_USER=your_vpn_username
+VPN_PASSWORD=your_vpn_password
+
+Поддерживаются дополнительные пользователи VPN, и их можно опционально объявить в вашем envфайле следующим образом. 
+Имена пользователей и пароли должны быть разделены пробелами, а имена пользователей не могут содержать дубликаты. 
+Все пользователи VPN будут использовать один и тот же IPsec PSK.
+
+VPN_ADDL_USERS=additional_username_1 additional_username_2
+VPN_ADDL_PASSWORDS=additional_password_1 additional_password_2
+
+
+Link: https://hub.docker.com/r/hwdsl2/ipsec-vpn-server
