@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Создаем функцию
+arj_func (){
+cd $FOLDER_APP
+docker-compose down
+tar -vczf $FOLDER_BACKUP`date "+%d-%m-%g_%H-%M"`-$NAME.tar.gz .
+docker-compose up -d
+# Удаляем старые файлы
+ls -t  $FOLDER_BACKUP*.tar.gz | tail -n+$DAYS | xargs rm
+}
+
+
+DAYS=5 # minus 1
+NAME=wordpress
+FOLDER_APP=/root/docker_app/wp/
+FOLDER_BACKUP=/root/docker_app/backup/AWS/
+
+arj_func
+
+
+NAME=conspect
+FOLDER_APP=/root/docker_app/info/content/conspect/
+FOLDER_BACKUP=/root/docker_app/backup/AWS/
+
+arj_func
+
+
+aws s3 sync /root/docker_app/backup/AWS/  s3://mlp.pp.ua/ --storage-class GLACIER
+aws s3 sync /root/docker_app/backup/AWS/  s3://mlp.pp.ua/ --delete --storage-class GLACIER
+
+exit 0
+
