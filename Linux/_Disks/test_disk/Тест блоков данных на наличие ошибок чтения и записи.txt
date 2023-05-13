@@ -1,0 +1,8 @@
+apt-get install e2fsprogs
+
+
+Отмонтируйте раздел, который вы хотите проверить, например, если вы хотите проверить раздел /dev/sda1, используйте следующую команду:
+umount /dev/sda1
+
+sudo badblocks -v /dev/sda1 > badblocks.log
+
