@@ -1,3 +1,7 @@
+Выяснить имя диска
+fdisk -l
+
+
 smartctl -a /dev/sda
 
 smartctl -a /dev/sdb

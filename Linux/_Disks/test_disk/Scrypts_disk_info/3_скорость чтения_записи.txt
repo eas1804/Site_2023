@@ -1,0 +1,8 @@
+#!/bin/bash
+
+clear
+for drive in /dev/sd?
+do
+    echo "Drive: $drive"
+    sudo hdparm -tT $drive
+done

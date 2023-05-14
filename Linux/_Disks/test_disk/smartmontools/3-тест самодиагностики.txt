@@ -6,8 +6,13 @@ smartctl -t short /dev/sdc
 smartctl -t short /dev/sdd
 
 
+Если во время теста запустить smartctl -t short /dev/sdb
+он раскажет, чколько процентов еще осталось до конца теста:)
+
+
 ================
 smartctl -H /dev/sda
+smartctl -H /dev/sdb
 для проверки диска на наличие ошибок и предупреждений
 
 

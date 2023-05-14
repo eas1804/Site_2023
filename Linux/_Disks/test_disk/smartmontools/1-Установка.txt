@@ -1,1 +1,1 @@
-apt-get install smartmontools
+apt install smartmontools -y
