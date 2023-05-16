@@ -1,0 +1,1 @@
+sc.exe create windows_exporter type= own start= auto binpath= "C:\windows_exporter\windows_exporter-0.21.0-amd64.exe --config.file=C:\windows_exporter\config.yml" displayname= "Windows exporter (Prometheus)"

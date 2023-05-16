@@ -1,3 +1,7 @@
 Открываем порт 3389
 
 netsh advfirewall firewall add rule name="Open Remote Desktop" protocol=TCP dir=in localport=3389 action=allow
+
+
+Windows exporter 9182 
+netsh advfirewall firewall add rule name="Windows exporter" protocol=TCP dir=in localport=9182 action=allow
