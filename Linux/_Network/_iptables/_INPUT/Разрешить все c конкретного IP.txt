@@ -1,3 +1,6 @@
 Разрешить все c конкретного IP
 
 iptables -A INPUT -s 192.168.1.1 -j ACCEPT
+
+iptables -A INPUT -s 185.196.70.19 -j ACCEPT  -m comment --comment "Unac"
+iptables -A INPUT -s 178.150.69.156 -j ACCEPT -m comment --comment "Lesnoy"

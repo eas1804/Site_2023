@@ -1,0 +1,6 @@
+cat /etc/debian_version
+Результатом будет вывод номера версии Debian.
+
+
+lsb_release -a
+для получения информации о версии Debian:

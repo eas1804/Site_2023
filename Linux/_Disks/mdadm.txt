@@ -1,0 +1,28 @@
+1. Просмотреть статус Raid
+cat /proc/mdstat
+
+2. Создать Raid
+mdadm --create /dev/md2 --level=1 --raid-disks=2 /dev/sda3 /dev/sdc3
+
+где:
+/dev/md2  имя raid массива
+--level=1 - уровень 1 , то есть заркало
+
+--raid-disks=2 /dev/sda3 /dev/sdc3
+Сколько дисков и какие именно объединять
+
+
+3. Просмотр процесса в реальном времени
+ watch -n 3 tail -n 10 /proc/mdstat
+
+
+4. Добавим информацию о новом массиве в конфигурационный файл /etc/mdadm/mdadm.conf, иначе после перезагрузки массив не будет виден в системе:
+
+mdadm --examine --scan | grep 'md/2' >> /etc/mdadm/mdadm.conf
+
+
+
+
+
+
+mdadm --create /dev/md3 --level=1 --raid-disks=2 /dev/sdb /dev/sdd

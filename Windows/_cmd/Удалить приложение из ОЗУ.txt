@@ -1,2 +1,3 @@
 taskkill /f /im openvpn*
 taskkill /f /im teamviewer*
+taskkill /f /im 1c*
