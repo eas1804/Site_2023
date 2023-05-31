@@ -1,0 +1,23 @@
+echo "export PATH=$PATH:/usr/sbin" >>/root/.bashrc
+source ~/.bashrc
+timedatectl set-timezone 'Europe/Kiev'
+export HISTSIZE=10000
+export HISTTIMEFORMAT="%h %d %H:%M:%S "
+PROMPT_COMMAND='history -a'
+export HISTIGNORE="ls:ll:history:w:htop:pwd"
+
+apt install sudo mc curl vim sysstat  dstat  htop iftop ifstat gdisk  -y
+
+apt install cockpit
+
+echo "syntax on" >> ~/.vimrc
+echo "colorscheme elflord" >> ~/.vimrc
+echo "set incsearch" >> ~/.vimrc
+echo "set smartcase" >> ~/.vimrc
+echo "set nocompatible" >> ~/.vimrc
+echo "set history=1000" >> ~/.vimrc
+echo "set ignorecase" >> ~/.vimrc
+echo "set hlsearch" >> ~/.vimrc
+echo "set showmatch" >> ~/.vimrc
+echo "highlight Comment ctermfg=LightCyan" >> ~/.vimrc
+echo "set wrap" >> ~/.vimrc

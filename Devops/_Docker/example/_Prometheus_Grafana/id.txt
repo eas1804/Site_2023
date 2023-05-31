@@ -1,0 +1,5 @@
+linux	1860	10180	14731		
+	Node Exporter Full	Linux Hosts Metrics | Base	Linux Stats with Node Exporter		
+
+Windows	14694	13868	15453	18658	6593
+	Windows Exporter Dashboard	windows_exporter for Prometheus Dashboard EN – некоторые заголовки на китайском	Windows Servers	Несколько серверов на одном экране	Windows Node

@@ -1,0 +1,7 @@
+Процессор
+
+lshw -c cpu
+
+dmidecode --type processor
+
+cat /proc/cpuinfo

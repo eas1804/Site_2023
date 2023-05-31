@@ -1,8 +1,12 @@
 Выяснить имя диска
 fdisk -l
 
+Кличи -i -a
 
+smartctl -i /dev/sda
 smartctl -a /dev/sda
+
+
 
 smartctl -a /dev/sdb
 smartctl -a /dev/sdc

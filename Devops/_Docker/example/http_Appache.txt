@@ -17,10 +17,10 @@ RUN apt install apache2 -y
 EXPOSE 80
 
 2. Собрать образ
-docker build -t my_build/web1 .
+docker build -t sli_build/apache_rus .
 
 3.
-docker run -dit --name itisgood-web -p 8080:80 -v /home/name/website/:/var/www/html my_build/web1 /usr/sbin/apache2ctl -D FOREGROUND --restart=unless-stopped 
+docker run -dit --name itisgood-web -p 8080:80 -v /home/name/website/:/var/www/html sli_build/apache_rus /usr/sbin/apache2ctl -D FOREGROUND --restart=unless-stopped 
 
 где /home/name/website/ — каталог с файлами на локальном хосте
 

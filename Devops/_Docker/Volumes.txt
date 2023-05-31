@@ -1,0 +1,32 @@
+Вот пример команды для создания именованного тома, связанного с каталогом /mnt/ на хостовой машине:
+
+docker volume create \
+--driver local \
+--opt type=none \
+--opt device=/mnt/ \
+--opt o=bind \
+my_named_volume
+
+Опции --driver local указывают на использование локального драйвера томов, 
+а --opt type=none указывает, что это не удаленный том.
+А опция --opt o=bind говорит Docker о применении привязки между именованным томом и указанным каталогом
+
+Теперь, чтобы использовать этот именованный том в вашей команде docker run, вы можете сделать следующее:
+docker run -dit \
+--name 1-sli_web \
+-p 80:80 \
+-v my_named_volume:/var/www/html \
+my_build/web1 \
+
+
+
+создать именованный том
+docker volume create my_named_volume
+
+
+Просмотр томов
+docker volume ls
+
+Удаление тома
+Docker volume rm my_named_volume
+

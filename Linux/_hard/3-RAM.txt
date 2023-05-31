@@ -1,0 +1,2 @@
+lshw -short | grep -i "memory"
+dmidecode --type memory

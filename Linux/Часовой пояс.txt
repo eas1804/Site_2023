@@ -1,2 +1,2 @@
 Часовой пояс
-timedatectl set-timezone 'EuropeKiev'
+timedatectl set-timezone 'Europe/Kiev'

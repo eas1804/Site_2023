@@ -1,0 +1,2 @@
+sudo apt-get install ifstat
+ifstat -i eth0

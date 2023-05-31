@@ -1,16 +1,19 @@
+Информация
+/etc/mdadm/mdadm.conf
+
+
 1. Просмотреть статус Raid
 cat /proc/mdstat
 
+Подробная информация о массиве
+mdadm -D /dev/md0
+
+
 2. Создать Raid
-mdadm --create /dev/md2 --level=1 --raid-disks=2 /dev/sda3 /dev/sdc3
 
-где:
-/dev/md2  имя raid массива
---level=1 - уровень 1 , то есть заркало
-
---raid-disks=2 /dev/sda3 /dev/sdc3
-Сколько дисков и какие именно объединять
-
+Создать Raid
+mdadm --create /dev/md2 --level=1 --raid-disks=2 /dev/sda3 /dev/sdb3 
+Объеденить 2 раздела /dev/sda3 и /dev/sdb3 в Raid 1 и назвать устройство /dev/md2
 
 3. Просмотр процесса в реальном времени
  watch -n 3 tail -n 10 /proc/mdstat
@@ -20,9 +23,19 @@ mdadm --create /dev/md2 --level=1 --raid-disks=2 /dev/sda3 /dev/sdc3
 
 mdadm --examine --scan | grep 'md/2' >> /etc/mdadm/mdadm.conf
 
+5. Проверка целостности
+echo 'check' > /sys/block/md0/md/sync_action
+
+Результат проверки смотрим командой:
+
+cat /sys/block/md0/md/mismatch_cnt
+если команда возвращает 0, то с массивом все в порядке.
+
+Остановка проверки:
+
+echo 'idle' > /sys/block/md0/md/sync_action
 
 
 
-
-
-mdadm --create /dev/md3 --level=1 --raid-disks=2 /dev/sdb /dev/sdd
+Link: Создание RAID в Linux с помощью mdadm. Отказоустойчивость дисков (dmosk.ru)
+https://www.dmosk.ru/miniinstruktions.php?mini=mdadm
