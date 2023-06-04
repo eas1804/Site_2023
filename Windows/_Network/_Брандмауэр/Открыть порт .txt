@@ -5,3 +5,10 @@ netsh advfirewall firewall add rule name="Open Remote Desktop" protocol=TCP dir=
 
 Windows exporter 9182 
 netsh advfirewall firewall add rule name="Windows exporter" protocol=TCP dir=in localport=9182 action=allow
+
+
+
+
+netsh advfirewall firewall
+add rule name="Open FTP 21 TCP"
+dir=in action=allow protocol=TCP localport=21

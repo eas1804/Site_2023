@@ -1,3 +1,29 @@
+Docker-compose.yaml
+version: '3'
+services:
+  sli-web:
+    container_name: sli-web
+    image: sli_build/apache_rus
+    ports:
+      - '80:80'
+    volumes:
+      - '/mnt/disk2_WD/:/var/www/html'
+    command: /usr/sbin/apache2ctl -D FOREGROUND
+    restart: always
+
+  sli-web2:
+    container_name: sli-web2
+    image: sli_build/apache_rus
+    ports:
+      - '81:80'
+    volumes:
+      - '/home/exch_adm/:/var/www/html'
+    command: /usr/sbin/apache2ctl -D FOREGROUND
+    restart: always
+
+
+
+
 ==============Опубликовать файлы по http=============
 
 docker run -dit --name itisgood-web -p 8080:80 -v /home/name/website/:/usr/local/apache2/htdocs/ httpd:2.4 \

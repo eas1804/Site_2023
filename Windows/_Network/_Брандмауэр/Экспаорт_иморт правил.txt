@@ -1,0 +1,2 @@
+netsh advfirewall export "C:\temp\WFconfiguration.wfw"
+netsh advfirewall import "C:\temp\WFconfiguration.wfw"

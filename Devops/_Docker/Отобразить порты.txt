@@ -1,0 +1,5 @@
+можно увидеть порты с помощью команды
+
+docker port [CONTAINER].
+
+docker port static-site

@@ -6,11 +6,13 @@ dism /Online /Add-Capability /CapabilityName:OpenSSH.Server~~~~0.0.1.0
 Для более ранних версий, скачать:
 
 https://github.com/PowerShell/Win32-OpenSSH/releases
-Проверить
+	Проверить
 Get-WindowsCapability -Online | ? Name -like 'OpenSSH.Ser*'
-Настроить
+	
+	Настроить
 Set-Service -Name sshd -StartupType 'Automatic'
 Start-Service sshd
 netstat -na| findstr ":22"
-Файрвол
+
+	файрвол
 Get-NetFirewallRule -Name *OpenSSH-Server* |select Name, DisplayName, Description, Enabled

@@ -1,0 +1,85 @@
+================Docker Compose====================
+
+Чтобы Docker Compose автоматически запускался после перезагрузки Debian, вы можете настроить его как службу systemd. Вот как это можно сделать:
+
+Создайте файл службы с расширением .service в каталоге /etc/systemd/system/. Например, /etc/systemd/system/docker-compose.service.
+
+Откройте созданный файл службы в текстовом редакторе и добавьте следующий содержимое:
+
+plaintext
+Copy code
+[Unit]
+Description=Docker Compose Service
+Requires=docker.service
+After=docker.service network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/path/to/your/docker-compose/directory
+ExecStart=/usr/local/bin/docker-compose up -d
+ExecStop=/usr/local/bin/docker-compose down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+Обратите внимание, что вам нужно заменить /path/to/your/docker-compose/directory на полный путь к каталогу, где находится ваш файл docker-compose.yml. Также убедитесь, что путь к исполняемому файлу docker-compose (/usr/local/bin/docker-compose) верен для вашей системы.
+
+Сохраните и закройте файл службы.
+
+Обновите конфигурацию systemd, чтобы он обнаружил новую службу:
+
+Copy code
+sudo systemctl daemon-reload
+Активируйте службу, чтобы она запускалась автоматически при загрузке:
+bash
+Copy code
+sudo systemctl enable docker-compose
+Теперь после перезагрузки Debian служба systemd будет запускать Docker Compose автоматически. Вы можете управлять службой, используя команды systemctl:
+
+Запустить службу: sudo systemctl start docker-compose
+Остановить службу: sudo systemctl stop docker-compose
+Перезапустить службу: sudo systemctl restart docker-compose
+Проверить статус службы: sudo systemctl status docker-compose
+
+
+
+===========Docker===============
+Чтобы контейнер автоматически запускался после перезагрузки Debian, вы можете настроить его как службу systemd. 
+Создайте файл службы с расширением .service в каталоге 
+/etc/systemd/system/. 
+Например, /etc/systemd/system/sli-web.service.
+
+Откройте созданный файл службы в текстовом редакторе и добавьте следующий содержимое:
+
+
+[Unit]
+Description=SLI Web Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a sli-web
+ExecStop=/usr/bin/docker stop -t 2 sli-web
+
+[Install]
+WantedBy=multi-user.target
+
+Этот файл службы указывает systemd, как управлять контейнером. Он настраивает автоматическую перезагрузку контейнера (Restart=always) и определяет команды для запуска и остановки контейнера.
+
+Сохраните и закройте файл службы.
+
+Обновите конфигурацию systemd, чтобы он обнаружил новую службу:
+systemctl daemon-reload
+
+Активируйте службу, чтобы она запускалась автоматически при загрузке:
+bash
+Copy code
+sudo systemctl enable sli-web
+Теперь, после перезагрузки Debian, служба systemd будет запускать контейнер автоматически. Вы можете управлять службой, используя команды systemctl:
+
+Запустить службу: sudo systemctl start sli-web
+Остановить службу: sudo systemctl stop sli-web
+Перезапустить службу: sudo systemctl restart sli-web
+Проверить статус службы: sudo systemctl status sli-web

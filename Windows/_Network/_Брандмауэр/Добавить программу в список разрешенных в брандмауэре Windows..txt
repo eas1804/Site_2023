@@ -1,0 +1,3 @@
+netsh advfirewall firewall
+add rule name="Allow VNC" dir=in action=allow
+program="C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe"
