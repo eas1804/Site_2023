@@ -2,13 +2,16 @@ tar
 ===============================================
 	Упаковать
 
-tar -vczf /Backup/date "+%d-%m-%g_%H-%M-%S"-1c.tar.gz /mnt/win2003
+tar -vczf /Backup/`date "+%d-%m-%g_%H-%M-%S"`-1c.tar.gz /mnt/win2003
 или
+==
 tar --create \
 --gzip \
---file=/Backup/date "+%d-%m-%g_%H-%M-%S"-1c.tar.gz \
+--file=/home/exch_adm/backup/site_amida/`date "+%d-%m-%g_%H-%M-%S"`-amiad.tar.gz \
 --ignore-failed-read \
-/mnt/win2003
+-v \
+/var/www/html/amida_in_ua
+===
 с — создать архив
 f — упаковка содержимого в файл
 z или j Для использования сжатия указать tar, каким архиватором следует сжать архив. gzip и bzip2 ключи будут -z и -j
@@ -16,6 +19,7 @@ v — для визуального отображения хода процес
 Рекомендую использовать мнемоническое правило:
 tar czf file.tar.gz folder
 czf — create zip file (создать zip-файл)
+
 
 	Исключения при архивированиии
 
