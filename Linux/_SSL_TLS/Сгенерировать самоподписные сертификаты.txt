@@ -1,0 +1,4 @@
+openssl req -x509 -newkey ec:<(openssl ecparam -name secp384r1) -keyout server.key -out server.crt -nodes -sha256 -days 3650 -subj '/CN=server'
+
+
+openssl req -x509 -newkey ec:<(openssl ecparam -name secp384r1) -keyout client.key -out client.crt -nodes -sha256 -days 3650 -subj '/CN=Client'

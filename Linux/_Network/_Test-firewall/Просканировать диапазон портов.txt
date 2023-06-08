@@ -12,3 +12,13 @@ nmap -sV -Pn --script vulners 192.168.70.12
 
 nc — Занимает много времени!
 nc -vz 192.168.70.12 1-1023 2>&1 | grep succeeded
+====Script==========
+root@instance-20230328-0941:~# cat scan_ports.sh
+
+clear
+echo ================================================
+echo Scan $1
+echo it is no My IP
+echo Atantion with port 3389, 22, 145
+echo =================================================
+nmap -v -p 1-65535 -sSU  $1 | grep "open port"

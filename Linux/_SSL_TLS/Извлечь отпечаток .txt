@@ -1,0 +1,1 @@
+openssl  x509 -fingerprint -sha256 -in server.crt -noout

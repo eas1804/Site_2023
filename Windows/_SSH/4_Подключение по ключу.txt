@@ -25,8 +25,17 @@ StrictModes no
 
 #Match Group administrators
 # AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+
 Перезапустить OpenVPN
-Restart-Service sshd
+net stop sshd
+net start sshd
+
+====
+Restart-Service sshd - не сработало
+====
+
+
+
 При желании — Запрет подключения по паролю
 В файле C:\ProgramData\ssh\sshd_config
 
