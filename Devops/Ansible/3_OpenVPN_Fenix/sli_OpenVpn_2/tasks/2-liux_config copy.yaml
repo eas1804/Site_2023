@@ -1,0 +1,59 @@
+---
+# task for Linux Config
+
+# 1. apt install easy-rsa openvpn iptables-persistent -y
+- name:  1. Install packages
+  ansible.builtin.apt:
+    name: 
+    - openvpn
+    - easy-rsa
+    - iptables-persistent
+    update_cache: yes
+    state: present
+
+# 2. vi /etc/sysctl.conf   net.ipv4.ip_forward=1
+- name: 2. forwarding IPv4
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    sysctl_set: yes
+    ignoreerrors: true
+    reload: yes
+  failed_when: false
+
+
+# 3. iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+# cсделал вручную
+- name: 3. MASQUERADE
+  ansible.builtin.iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: '{{openvpn_interface}}'
+    jump: MASQUERADE
+    protocol: all
+    source: '0.0.0.0/0'
+    destination: '0.0.0.0/0'
+    comment: Ansible NAT  MASQUERADE
+  become: true
+
+  # 4.  /usr/sbin/iptables -A INPUT -p udp -m udp --dport 1194 -j ACCEPT -m comment --comment "For OpenVPN"
+- name: Open {{openvpn_port}} UDP
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: udp
+    destination_port: '{{openvpn_port}}'
+    jump: ACCEPT
+    comment: Ansible Open {{openvpn_port}} UDP
+  become: true  
+
+# policy FORWARD chain to ACCEPT
+- name: policy FORWARD chain to ACCEPT
+  ansible.builtin.iptables:
+    chain: FORWARD
+    policy: ACCEPT
+
+  # 5. service netfilter-persistent save
+- name: netfilter-persistent save
+  ansible.builtin.shell:
+    cmd: netfilter-persistent save
+    chdir: /usr/sbin/

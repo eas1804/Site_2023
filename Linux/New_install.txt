@@ -1,14 +1,20 @@
+ssh-keygen -t ed25519 -C "Sli Debian"
+cat /root/.ssh/id_ed25519.pub >> /root/.ssh/authorized_keys
+cat /root/.ssh/id_ed25519
+=======
 echo "export PATH=$PATH:/usr/sbin" >>/root/.bashrc
 source ~/.bashrc
+
 timedatectl set-timezone 'Europe/Kiev'
 export HISTSIZE=10000
 export HISTTIMEFORMAT="%h %d %H:%M:%S "
 PROMPT_COMMAND='history -a'
 export HISTIGNORE="ls:ll:history:w:htop:pwd"
 
-apt install sudo mc curl vim sysstat  dstat  htop iftop ifstat gdisk  -y
+apt install sudo mc curl vim  sudo -y
 
-apt install cockpit
+sudo sed -i '/^# User privilege specification$/a exch_adm ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+
 
 echo "syntax on" >> ~/.vimrc
 echo "colorscheme elflord" >> ~/.vimrc
@@ -21,3 +27,10 @@ echo "set hlsearch" >> ~/.vimrc
 echo "set showmatch" >> ~/.vimrc
 echo "highlight Comment ctermfg=LightCyan" >> ~/.vimrc
 echo "set wrap" >> ~/.vimrc
+
+
+
+
+
+
+# apt install cockpit sysstat  dstat  htop iftop ifstat gdisk -y

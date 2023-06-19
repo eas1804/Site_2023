@@ -9,3 +9,8 @@ iptables -A INPUT -p tcp -s 192.168.0.0/16 -m tcp --dport 22 -j ACCEPT -m commen
 
 Разрешить SSH c IP x.x.x.x (можно указывать доменное имя)
 iptables -A INPUT -p tcp -s x.x.x.x -m tcp --dport 22 -j ACCEPT -m comment --comment "My Office"
+
+
+iptables -A INPUT -p tcp -s lesnoy.mlp.pp.ua -m tcp --dport 22 -j ACCEPT -m comment --comment "Lesnoy"
+iptables -A INPUT -p tcp -s unac.mlp.pp.ua -m tcp --dport 22 -j ACCEPT -m comment --comment "unac"
+iptables -A INPUT -p tcp -s bku.mlp.pp.ua -m tcp --dport 22 -j ACCEPT -m comment --comment "bku"

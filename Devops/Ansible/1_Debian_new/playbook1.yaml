@@ -1,0 +1,101 @@
+---
+- name: test connection to my servers
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: ping my servers
+    ping:
+
+# apt update
+  - name: apt_update
+    ansible.builtin.apt:
+      update_cache: yes
+
+# apt upgrade
+  - name: Update all packages to their latest version
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+
+# dist-upgrade
+  - name: Upgrade the OS (apt-get dist-upgrade)
+    ansible.builtin.apt:
+      upgrade: dist
+
+  - name: Install a list of packages
+    ansible.builtin.apt:
+      pkg:
+      - mc 
+      - curl
+      - vim
+      - sudo
+
+#Копирование файла
+  - name: "Copy VIM config"
+    ansible.builtin.copy:
+      src: "vimrc"
+      dest: "/root/.vimrc"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+
+
+# Добавить строку:
+  - name: Add   ls -l
+    lineinfile:
+      path: "/root/.bashrc"
+      line: "alias ll='ls $LS_OPTIONS -l'"
+
+  - name: Add  path /use/sbin
+    lineinfile:
+      path: "/root/.bashrc"
+      line: "PATH=$PATH:/usr/sbin"
+
+  - name: Add SUDO
+    lineinfile:
+      path: "/etc/sudoers"
+      line: "exch_adm ALL=(ALL) NOPASSWD: ALL"
+
+  - name: Установить часовой пояс 'Europe/Kiev'
+    timezone:
+      name: Europe/Kiev
+
+#####
+  - name: Установить параметр HISTSIZE
+    lineinfile:
+      dest: ~/.bashrc
+      regexp: '^export HISTSIZE='
+      line: 'export HISTSIZE=10000'
+      state: present
+
+  - name: Установить параметр HISTTIMEFORMAT
+    lineinfile:
+      dest: ~/.bashrc
+      regexp: '^export HISTTIMEFORMAT='
+      line: 'export HISTTIMEFORMAT="%h %d %H:%M:%S "'
+      state: present
+
+  - name: Установить параметр PROMPT_COMMAND
+    lineinfile:
+      dest: ~/.bashrc
+      regexp: '^export PROMPT_COMMAND='
+      line: 'export PROMPT_COMMAND="history -a"'
+      state: present
+
+  - name: Установить параметр HISTIGNORE
+    lineinfile:
+      dest: ~/.bashrc
+      regexp: '^export HISTIGNORE='
+      line: 'export HISTIGNORE="ls:ll:history:w:htop:pwd"'
+      state: present
+
+#  - name: Обновить текущее окружение
+#    ansible.builtin.shell:  
+#      cmd: source /root/.bashrc
+#      chdir: /root
+
+
+  - name: reboot 
+    ansible.builtin.reboot:
+

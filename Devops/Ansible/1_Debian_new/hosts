@@ -1,0 +1,7 @@
+[home_debian]
+debian12 ansible_host=172.16.181.162 ansible_user=root ansible_ssh_private_key_file=/root/Ansible/13-06-2023 ansible_port=2222
+#debian11 ansible_host=172.16.181.172 ansible_user=exch_adm  ansible_ssh_private_key_file=/root/Ansible/user_13-06
+
+
+### Run playbook
+### ansible-playbook -i hosts  -vD playbook1.yaml

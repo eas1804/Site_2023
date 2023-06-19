@@ -1,0 +1,29 @@
+---
+- name: "download ca.crt, ta.key"
+  ansible.builtin.fetch:
+    src: "{{ openvpn_dir }}/client-configs/keys/{{item}}"
+    dest: "{{playbook_dir}}/rezultat_ovpn/"
+  loop:
+    - ca.crt
+    - ta.key
+
+- name: "download *.key"
+  fetch:
+    src:  "{{ openvpn_dir }}/client-configs/keys/{{item}}.key"
+    dest: "{{playbook_dir}}/rezultat_ovpn/"
+  with_items:
+    - "{{openvpn_clients}}"
+
+- name: "download *.crt"
+  fetch:
+    src:  "{{ openvpn_dir }}/client-configs/keys/{{item}}.crt"
+    dest: "{{playbook_dir}}/rezultat_ovpn/"
+  with_items:
+    - "{{openvpn_clients}}"
+
+- name: "download *.ovpn"
+  fetch:
+    src:  "{{ openvpn_dir }}/client-configs/keys/{{item}}.ovpn"
+    dest: "{{playbook_dir}}/rezultat_ovpn/"
+  with_items:
+    - "{{openvpn_clients}}"

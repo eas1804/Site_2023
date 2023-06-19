@@ -1,0 +1,53 @@
+---
+# 1. Скопировать все  сгенерированные ранее файлы Сервера в папку {{openvpn_dir}}
+- name: "copy files to openvpn_dir/server "
+  ansible.builtin.copy:
+    src: "{{ easyrsa_dir }}/pki/{{ item }}"
+    dest: "{{openvpn_dir}}/{{ item | basename }}"
+    mode: "0644"
+    remote_src: true
+  loop:
+    - ca.crt
+    - dh.pem
+    - ta.key
+    - private/ca.key
+    - private/server.key
+    - issued/server.crt
+### USERS ######
+# 2. Создать каталог для конфигов пользователей   /etc/openvpn/client-configs/keys
+- name: "test dir exist"
+  file:  
+    path: "{{openvpn_dir}}/client-configs/keys"
+    state: directory
+    mode: 0755
+
+# 3. Скопиррвоать ca.crt, ta.key в client-configs/keys/
+- name: "copy ca.crt, ta.key to {{openvpn_dir}}/client-configs/keys/ "
+  ansible.builtin.copy:
+    src: "{{ easyrsa_dir }}/pki/{{ item }}"
+    dest: "{{openvpn_dir}}/client-configs/keys/{{ item | basename }}"
+    mode: "0644"
+    remote_src: true
+  loop:
+    - ca.crt
+    - ta.key
+
+# 4. Скопиррвоать users *.key  в client-configs/keys/
+- name: "copy *.key,  to {{openvpn_dir}}/client-configs/keys/ "
+  ansible.builtin.copy:
+    src: "{{ easyrsa_dir }}/pki/private/{{ item }}.key"
+    dest: "{{openvpn_dir}}/client-configs/keys/{{ item | basename }}.key"
+    mode: "0644"
+    remote_src: true
+  with_items:
+    - "{{ openvpn_clients }}"
+
+# 5. Скопиррвоать users *.crt  в client-configs/keys/
+- name: "copy *.key,  to {{openvpn_dir}}/client-configs/keys/ "
+  ansible.builtin.copy:
+    src: "{{ easyrsa_dir }}/pki/issued/{{ item }}.crt"
+    dest: "{{openvpn_dir}}/client-configs/keys/{{ item | basename }}.crt"
+    mode: "0644"
+    remote_src: true
+  with_items:
+    - "{{ openvpn_clients }}"

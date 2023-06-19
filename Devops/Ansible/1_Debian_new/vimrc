@@ -1,0 +1,12 @@
+syntax on
+colorscheme elflord
+set incsearch
+set smartcase
+set nocompatible
+set history=1000
+set ignorecase
+set hlsearch
+set showmatch
+highlight Comment ctermfg=LightCyan
+set wrap
+

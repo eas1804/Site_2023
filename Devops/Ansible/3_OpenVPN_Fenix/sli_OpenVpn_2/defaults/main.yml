@@ -1,0 +1,26 @@
+---
+# defaults file for sli_OpenVpn_2
+
+easyrsa_dir: "/usr/share/easy-rsa"
+openvpn_dir: "/etc/openvpn"
+
+openvpn_addres:  fenix.mlp.pp.ua
+openvpn_port: 1195
+openvpn_proto: udp
+openvpn_interface: eth0
+
+openvpn_clients:
+  - exch_adm
+  - Svetlana
+  - Oksana
+  - admin2
+  - admin3
+  - user1
+  - user2
+  - user3
+  - user4
+  - user5
+  - user6
+  - user7
+  - user8
+  - user9

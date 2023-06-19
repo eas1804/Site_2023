@@ -1,0 +1,11 @@
+---
+# tasks file for sli_OpenVpn_2
+
+- include_tasks: 1-test_connect.yaml
+- include_tasks: 2-liux_config copy.yaml
+- include_tasks: 3-easy_rsa.yaml
+- include_tasks: 4-Copy_Files.yaml
+- include_tasks: 5-config_server.yaml
+- include_tasks: 6-config_clients.yaml
+- include_tasks: 7-Download_conf.yaml
+- include_tasks: 8-reboot.yaml

@@ -1,0 +1,7 @@
+---
+- hosts: manual
+  become: yes
+  roles: 
+    - sli_OpenVpn_2
+
+    

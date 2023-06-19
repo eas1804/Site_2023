@@ -1,0 +1,74 @@
+---
+# 1 cp /usr/share/easy-rsa/vars.example /usr/share/easy-rsa/vars
+- name: copy vars.example in vars
+  ansible.builtin.copy:
+    src: "{{ easyrsa_dir }}/vars.example"
+    dest: "{{ easyrsa_dir }}/vars"
+    mode: "0644"
+    remote_src: true
+
+# 2 Отредактировать файл vars
+- name: Vars config
+  ansible.builtin.lineinfile:
+    path: "{{ easyrsa_dir }}/vars"
+    line: '{{ item }}'
+    create: yes
+  loop:
+    - set_var EASYRSA_CERT_EXPIRE       10800  
+    - set_var EASYRSA_KEY_SIZE          2048	
+    - set_var EASYRSA_REQ_COUNTRY     	"UA"
+    - set_var EASYRSA_REQ_PROVINCE    	"KYIV"
+    - set_var EASYRSA_REQ_CITY        	"KYIV"
+    - set_var EASYRSA_REQ_ORG 	        "My Company"
+    - set_var EASYRSA_REQ_EMAIL       	"e@mlp.pp.ua"
+    - set_var EASYRSA_REQ_OU          	"My Organizational Unit"
+
+#  3. Инициируем PKI. В Shell выполнить /usr/share/easy-rsa/easyrsa init-pki 
+# Your newly created PKI dir is: /usr/share/easy-rsa/pki
+- name: easy-rsa init-pki
+  command:
+    cmd:      "{{easyrsa_dir}}/easyrsa init-pki"
+    chdir:    "{{easyrsa_dir}}"
+    creates:  "{{easyrsa_dir}}/pki"
+  
+# 4. Создаем корневой сертификат ca.crt, ca.key. (easyrsa build-ca nopass)
+# В  ручном выводе вам будет предложено подтвердить Common Name вашего ЦС, поэтому используем переменную EASYRSA_BATCH: "yes"  
+- name: "easyrsa build-ca nopass"
+  command: 
+    cmd:     "{{easyrsa_dir}}/easyrsa build-ca nopass"
+    chdir:   "{{easyrsa_dir}}"
+    creates: "{{easyrsa_dir}}/pki/ca.crt"
+  environment:
+    EASYRSA_BATCH: "yes"  
+
+#  5. Создание запроса сертификата и закрытого ключа СЕРВЕРА OpenVPN. (easyrsa build-server-full server nopass)
+# Появятся фалы: /usr/share/easy-rsa/pki/issued/server.crt
+# /usr/share/easy-rsa/pki/private/server.key /usr/share/easy-rsa/pki/reqs/server.req
+- name: "easyrsa server nopass"
+  command: 
+    cmd:      "{{easyrsa_dir}}/easyrsa build-server-full server nopass"
+    chdir:    "{{easyrsa_dir}}"
+    creates:  "{{easyrsa_dir}}/pki/issued/server.crt"
+
+# 6. Диффи — Хеллмана (easyrsa gen-dh)
+- name: "easyrsa gen-dh"
+  command: 
+    cmd:      "{{easyrsa_dir}}/easyrsa gen-dh"
+    chdir:    "{{easyrsa_dir}}"
+    creates:  "{{easyrsa_dir}}/pki/dh.pem"
+
+# 7. ta.kay.  openvpn --genkey --secret ta.key
+- name: "openvpn genkey"
+  command: 
+    cmd:     "openvpn --genkey --secret {{easyrsa_dir}}/pki/ta.key"
+    creates: "{{easyrsa_dir}}/pki/ta.key"
+
+# 8 Генерирование ключей клиента
+# файлы *.crt появятся в  "{{ easyrsa_dir }}/pki/issued/" и *.key в "{{ easyrsa_dir }}/pki/private/"
+- name: easy-rsa client nopass
+  command:
+    cmd:     "{{ easyrsa_dir }}/easyrsa build-client-full  {{ item }} nopass"
+    chdir:   "{{ easyrsa_dir }}"
+    creates: "{{ easyrsa_dir }}/pki/issued/{{ item }}.crt"
+  with_items:
+    - "{{ openvpn_clients }}"
