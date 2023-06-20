@@ -1,0 +1,65 @@
+---
+- name: INVALID is DROP
+  ansible.builtin.iptables:
+    chain: INPUT
+    ctstate: INVALID
+    jump: DROP
+  become: yes
+
+- name: Allow related and established connections
+  ansible.builtin.iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+  become: yes
+
+
+- name:  localhost
+  ansible.builtin.iptables:
+    chain: INPUT
+    source: 127.0.0.1
+    jump: ACCEPT
+  become: yes
+
+- name: Allow new incoming SYN packets on TCP port 22 (SSH) from My IP
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: 22
+    ctstate: NEW
+    syn: match
+    jump: ACCEPT
+    comment: SSH from '{{ item }}'
+    source: '{{ item }}'
+  loop: 
+    - 178.150.69.156
+    - 135.181.140.170
+    - 185.196.70.19
+    - 176.9.149.182
+
+
+- name: Разрешить ICMP
+  iptables:
+    chain: INPUT
+    protocol: icmp
+    jump: ACCEPT
+
+
+- name: Set the policy for the INPUT chain to DROP
+  ansible.builtin.iptables:
+    chain: INPUT
+    policy: DROP
+
+#  apt install iptables-persistent -y
+- name:  Install packages
+  ansible.builtin.apt:
+    name: 
+    - iptables-persistent
+    update_cache: yes
+    state: present
+
+# service netfilter-persistent save
+- name: netfilter-persistent save
+  ansible.builtin.shell:
+    cmd: netfilter-persistent save
+    chdir: /usr/sbin/

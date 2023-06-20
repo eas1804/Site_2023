@@ -1,0 +1,5 @@
+---
+- hosts: debian_sli
+  become: yes
+  roles: 
+    - sli_linux_config

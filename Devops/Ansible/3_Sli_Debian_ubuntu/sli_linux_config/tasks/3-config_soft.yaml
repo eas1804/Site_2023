@@ -1,0 +1,43 @@
+---
+  - name: Установить часовой пояс 'Europe/Kiev'
+    timezone:
+      name: Europe/Kiev
+
+#Копирование VIM config
+  - name: "Copy VIM config"
+    ansible.builtin.copy:
+      src: "vimrc"
+      dest: "/root/.vimrc"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+
+
+#####
+  - name: Установить параметр HISTSIZE
+    lineinfile:
+      dest: ~/.bashrc
+      regexp: '^export HISTSIZE='
+      line: 'export HISTSIZE=10000'
+      state: present
+
+  - name: Установить параметр HISTTIMEFORMAT
+    lineinfile:
+      dest: ~/.bashrc
+      regexp: '^export HISTTIMEFORMAT='
+      line: 'export HISTTIMEFORMAT="%h %d %H:%M:%S "'
+      state: present
+
+  - name: Установить параметр PROMPT_COMMAND
+    lineinfile:
+      dest: ~/.bashrc
+      regexp: '^export PROMPT_COMMAND='
+      line: 'export PROMPT_COMMAND="history -a"'
+      state: present
+
+  - name: Установить параметр HISTIGNORE
+    lineinfile:
+      dest: ~/.bashrc
+      regexp: '^export HISTIGNORE='
+      line: 'export HISTIGNORE="ls:ll:history:w:htop:pwd"'
+      state: present

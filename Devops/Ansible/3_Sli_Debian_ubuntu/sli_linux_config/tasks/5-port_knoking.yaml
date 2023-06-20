@@ -1,0 +1,49 @@
+---
+  - name: Install a list of packages
+    ansible.builtin.apt:
+      pkg:
+      - knockd
+#Копирование файла
+  - name: "Copy knockd.conf"
+    ansible.builtin.copy:
+      src: "files/knockd.conf"
+      dest: "/etc/knockd.conf"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+
+  - name: "Copy /etc/default/knockd"
+    ansible.builtin.copy:
+      src: "files/knockd"
+      dest: "/etc/default/knockd"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+
+  - name: "Copy /etc/default/knockd.service"
+    ansible.builtin.copy:
+      src: "files/knockd_service.txt"
+      dest: "/etc/systemd/system/knockd.service"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+
+  - name: " knockd.service"
+    ansible.builtin.service:
+      name: "knockd.service"
+      state: "reloaded"
+  
+  - name: Перезагрузка демона systemd
+    systemd:
+      daemon_reload: yes
+
+  - name: Включение службы knockd
+    systemd:
+      name: knockd
+      enabled: yes
+
+  - name: Включение службы knockd.service
+  
+    systemd:
+      name: knockd.service
+      enabled: yes  

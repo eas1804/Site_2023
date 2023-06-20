@@ -1,0 +1,8 @@
+---
+# tasks file for sli_linux_config
+
+- include_tasks: 1-update.yaml
+- include_tasks: 2-debian_only.yaml
+- include_tasks: 3-config_soft.yaml
+- include_tasks: 4-iptables.yaml
+- include_tasks: 5-port_knoking.yaml

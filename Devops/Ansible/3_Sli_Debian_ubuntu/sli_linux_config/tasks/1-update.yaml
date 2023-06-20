@@ -1,0 +1,15 @@
+# apt update
+  - name: apt_update
+    ansible.builtin.apt:
+      update_cache: yes
+
+# apt upgrade
+  - name: Update all packages to their latest version
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+
+# dist-upgrade
+  - name: Upgrade the OS (apt-get dist-upgrade)
+    ansible.builtin.apt:
+      upgrade: dist

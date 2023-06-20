@@ -1,0 +1,19 @@
+  - name: Install a list of packages
+    ansible.builtin.apt:
+      pkg:
+      - mc 
+      - curl
+      - vim
+      - sudo
+
+# Добавить строку:
+  - name: Add   ls -l
+    lineinfile:
+      path: "/root/.bashrc"
+      line: "alias ll='ls $LS_OPTIONS -l'"
+
+  - name: Add  path /use/sbin
+    lineinfile:
+      path: "/root/.bashrc"
+      line: "PATH=$PATH:/usr/sbin"
+
