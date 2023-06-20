@@ -2,10 +2,12 @@
 
 1. В файл hosts  внести IP адрес сервера
 2. group_vars\debian_sli указать путь к ключу ssh
-3. Тест подключения 
+3. Если настраитвается PortKnoking указать WAN интерйейс в files/knockd.conf
+interface = vmbr0   #Какой слушать интерфейс
+4. Тест подключения 
 ansible all -m ping  -i hosts
 
-4. tasks\main
+5. tasks\main
 Включить-выключить нужные пункты
 - debian_only
 - iptables

@@ -4,23 +4,20 @@
     chain: INPUT
     ctstate: INVALID
     jump: DROP
-  become: yes
+  
 
 - name: Allow related and established connections
   ansible.builtin.iptables:
     chain: INPUT
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
-  become: yes
-
 
 - name:  localhost
   ansible.builtin.iptables:
     chain: INPUT
     source: 127.0.0.1
     jump: ACCEPT
-  become: yes
-
+  
 - name: Allow new incoming SYN packets on TCP port 22 (SSH) from My IP
   ansible.builtin.iptables:
     chain: INPUT

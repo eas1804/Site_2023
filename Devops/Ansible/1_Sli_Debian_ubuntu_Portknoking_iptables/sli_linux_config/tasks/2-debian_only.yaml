@@ -5,6 +5,7 @@
       - curl
       - vim
       - sudo
+      - iptables
 
 # Добавить строку:
   - name: Add   ls -l

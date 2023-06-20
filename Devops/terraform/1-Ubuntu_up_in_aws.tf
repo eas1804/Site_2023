@@ -9,7 +9,8 @@
 
 ## 2. Описываем ресурс вируальной машины ######
 resource "aws_instance" "example" {
-  ami           = "ami-0044130ca185d0880"
+  ami           = "ami-0044130ca185d0880" #Ubuntu
+  #ami = "ami-01e5ff16fd6e8c542" #Debian
   instance_type = "t2.micro"
   key_name      = "Luda2-cli"
   vpc_security_group_ids = ["sg-0da532254a49eba2f"]

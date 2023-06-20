@@ -4,3 +4,12 @@ iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
 iptables -A INPUT -m state --state INVALID -j DROP
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -i lo -j ACCEPT -m comment --comment "Enable Loopback"
+
+
+
+
+Блокируем нулевые пакеты:
+--tcp-flags ALL NONE
+Закрываемся от syn-flood атак:
+
+ ! --syn -m state --state NEW -j DROP
