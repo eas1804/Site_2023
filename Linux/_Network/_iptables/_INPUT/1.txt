@@ -10,6 +10,6 @@ iptables -A INPUT -i lo -j ACCEPT -m comment --comment "Enable Loopback"
 
 Блокируем нулевые пакеты:
 --tcp-flags ALL NONE
-Закрываемся от syn-flood атак:
 
+Закрываемся от syn-flood атак:
  ! --syn -m state --state NEW -j DROP
