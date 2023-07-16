@@ -3,6 +3,9 @@ openssl  x509 -in server.crt -text -noout
 для почты. Проверить дату окончания сертификата
 openssl s_client -servername mail.dtz.in.ua -connect mail.dtz.in.ua:993 2>/dev/null | openssl x509 -noout  -dates
 
+openssl s_client -servername test.oserwin.net -connect test.oserwin.net:443 2>/dev/null | openssl x509 -noout  -dates
+
+
 Expmle
 openssl s_client -servername mail.amida.in.ua -connect mail.amida.in.ua:993 2>/dev/null | openssl x509 -noout  -date
 

@@ -11,7 +11,7 @@ export HISTTIMEFORMAT="%h %d %H:%M:%S "
 PROMPT_COMMAND='history -a'
 export HISTIGNORE="ls:ll:history:w:htop:pwd"
 
-apt install sudo mc curl vim  sudo -y
+apt install sudo mc curl vim   -y
 
 sudo sed -i '/^# User privilege specification$/a exch_adm ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
 
@@ -34,3 +34,4 @@ echo "set wrap" >> ~/.vimrc
 
 
 # apt install cockpit sysstat  dstat  htop iftop ifstat gdisk -y
+cockpit  ip:9090

@@ -7,6 +7,17 @@ useradd -m -G adm,cdrom,wheel -s /bin/bash pupkin
 Пример
 useradd -m -u 11234 -d /home/users/test-user -c "Тестовый пользователь" -e 2072-01-01 -s /bin/bash test-user
 
+
+Скрипт
+#!/bin/bash
+# Создание пользователя
+sudo useradd exch_adm
+# Установка пароля
+echo "exch_adm:Sli_pass_2023" | sudo chpasswd
+# Добавление в группу sudo
+sudo usermod -aG sudo exch_adm
+
+
 ===========================================================
 Добавление пользователя:
 /usr/sbin/adduser vasyapupkin  --force-badname
