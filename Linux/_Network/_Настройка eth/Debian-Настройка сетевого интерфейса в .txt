@@ -27,5 +27,23 @@ systemctl restart networking.service
 
 Перезапуск службы сети:
 Эта команда перезапустит службу сети, что приведет к перезагрузке всех сетевых интерфейсов и применению изменений
+========================
+Bridge -vmbr0
+
+auto lo
+iface lo inet loopback
+
+auto eno1
+iface eno1 inet static
+        address 172.16.181.9/24
+
+auto vmbr0
+iface vmbr0 inet static
+        address 172.16.181.8/24
+        gateway 172.16.181.1
+        bridge-ports eno1
+        bridge-stp off
+        bridge-fd 0
+
 
 
