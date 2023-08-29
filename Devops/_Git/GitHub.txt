@@ -20,3 +20,12 @@ git remote -v
 
 7. Просмотр удаленных репозиториев
 git remote -v
+
+===
+9.	Git токен
+Используется вместо пароля
+https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+Settings ->Developer settings->Personal access tokens ->Tokens (classic).
+Включить repo и admin repo
+Полученный токен и будет пароль к учетной записи
+
