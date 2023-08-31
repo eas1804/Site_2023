@@ -5,6 +5,7 @@ FILE_SRV=/etc/openvpn/server.conf
 result=$(iptables -L INPUT -nv | grep OpenVPN)
 PORT=$(echo "$result" | awk '{print $11}' | cut -d: -f2)
 
+ls /etc/openvpn/ccd 2>/dev/null || mkdir /etc/openvpn/ccd
 
 echo "port $PORT"  >$FILE_SRV
 echo "proto udp" >>$FILE_SRV
@@ -30,7 +31,7 @@ echo "ifconfig-pool-persist /var/log/openvpn/ipp.txt" >>$FILE_SRV
 echo "verb 3" >>$FILE_SRV
 echo "explicit-exit-notify 1" >>$FILE_SRV
 
-echo 'push "route 192.168.1.0 255.255.255.0"' >>$FILE_SRV
+echo 'push "route 172.16.20.0 255.255.255.0"' >>$FILE_SRV
 
 echo 'client-config-dir "/etc/openvpn/ccd"' >>$FILE_SRV
 echo "topology subnet" >>$FILE_SRV

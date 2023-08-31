@@ -28,6 +28,7 @@ cp /usr/share/easy-rsa/pki/issued/server.crt  /etc/openvpn/
 cp /usr/share/easy-rsa/pki/private/server.key /etc/openvpn/
 cp /usr/share/easy-rsa/pki/ta.key /etc/openvpn/
 cp /usr/share/easy-rsa/pki/dh.pem /etc/openvpn/
+ls /etc/openvpn/ccd 2>/dev/null || mkdir /etc/openvpn/ccd
 ls -lt /etc/openvpn/
 
 
